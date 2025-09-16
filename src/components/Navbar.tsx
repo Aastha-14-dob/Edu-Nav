@@ -17,7 +17,16 @@ export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const location = useLocation();
 
-  const navigation = [
+  const navigation = user?.role === 'admin' ? [
+    { name: 'Dashboard', href: '/admin' },
+    { name: 'Students', href: '/admin/students' },
+    { name: 'Parents', href: '/admin/parents' },
+    { name: 'Colleges', href: '/admin/colleges' },
+    { name: 'Scholarships', href: '/admin/scholarships' },
+    { name: 'Quizzes', href: '/admin/quizzes' },
+    { name: 'Testimonials', href: '/admin/testimonials' },
+    { name: 'Settings', href: '/admin/settings' },
+  ] : [
     { name: 'Home', href: '/' },
     { name: 'Explore', href: '/explore' },
     { name: 'Timeline', href: '/timeline' },
@@ -75,7 +84,7 @@ export default function Navbar() {
             {user ? (
               <div className="flex items-center space-x-4">
                 <span className="text-sm text-muted-foreground hidden sm:block">
-                  Welcome, {user.name}
+                  {user.role === 'admin' ? `Admin - ${user.name}` : `Welcome, ${user.name}`}
                 </span>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -85,7 +94,11 @@ export default function Navbar() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem asChild>
-                      <Link to={user.role === 'student' ? '/student-dashboard' : '/parent-dashboard'}>
+                      <Link to={
+                        user.role === 'admin' ? '/admin' :
+                        user.role === 'student' ? '/student-dashboard' : 
+                        '/parent-dashboard'
+                      }>
                         Dashboard
                       </Link>
                     </DropdownMenuItem>

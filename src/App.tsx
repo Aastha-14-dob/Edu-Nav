@@ -32,6 +32,14 @@ import Timeline from "./pages/Timeline";
 import AdmissionDetails from "./pages/AdmissionDetails";
 import CollegeCourses from "./pages/CollegeCourses";
 import CourseDetails from "./pages/CourseDetails";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminStudents from "./pages/AdminStudents";
+import AdminParents from "./pages/AdminParents";
+import AdminColleges from "./pages/AdminColleges";
+import AdminScholarships from "./pages/AdminScholarships";
+import AdminQuizzes from "./pages/AdminQuizzes";
+import AdminTestimonials from "./pages/AdminTestimonials";
+import AdminSettings from "./pages/AdminSettings";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +78,17 @@ const App = () => (
               <Route path="/scholarships/history" element={<ScholarshipHistory />} />
               <Route path="/admissions/:id" element={<AdmissionDetails />} />
               <Route path="/colleges/:id/courses" element={<CollegeCourses />} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/students" element={<AdminStudents />} />
+              <Route path="/admin/parents" element={<AdminParents />} />
+              <Route path="/admin/colleges" element={<AdminColleges />} />
+              <Route path="/admin/scholarships" element={<AdminScholarships />} />
+              <Route path="/admin/quizzes" element={<AdminQuizzes />} />
+              <Route path="/admin/testimonials" element={<AdminTestimonials />} />
+              <Route path="/admin/settings" element={<AdminSettings />} />
+              
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
