@@ -1,0 +1,181 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* EduNav Design System - Inspired by Unacademy & PW Professional Aesthetics */
+
+@layer base {
+  :root {
+    /* Core Brand Colors - Clean Professional */
+    --background: 0 0% 100%;
+    --foreground: 220 13% 18%;
+    
+    /* Primary - Vibrant Purple (PW Inspired) */
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 262 83% 68%;
+    --primary-dark: 262 83% 48%;
+    
+    /* Secondary - Professional Slate (Unacademy Inspired) */
+    --secondary: 220 13% 91%;
+    --secondary-foreground: 220 13% 18%;
+    --secondary-dark: 220 13% 46%;
+    
+    /* Success - Sophisticated Teal */
+    --success: 158 64% 52%;
+    --success-light: 158 64% 62%;
+    --success-foreground: 0 0% 100%;
+    --success-muted: 158 64% 95%;
+    
+    /* Warning - Golden Accent (PW Yellow Inspired) */
+    --warning: 45 93% 58%;
+    --warning-light: 45 93% 68%;
+    --warning-foreground: 0 0% 100%;
+    --warning-muted: 45 93% 95%;
+    
+    /* Accent - Deep Teal (Unacademy Inspired) */
+    --accent: 170 97% 15%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 170 97% 25%;
+    
+    /* Cards & Surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 220 13% 18%;
+    --card-hover: 262 83% 98%;
+    --card-border: 220 13% 91%;
+    
+    /* Text Hierarchy */
+    --muted: 220 13% 96%;
+    --muted-foreground: 220 13% 46%;
+    --subtle: 220 13% 69%;
+    
+    /* Interactive Elements */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262 83% 58%;
+    
+    /* Professional Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%), hsl(262 83% 68%));
+    --gradient-secondary: linear-gradient(135deg, hsl(220 13% 18%), hsl(220 13% 28%));
+    --gradient-hero: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(170 97% 15%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(158 64% 52%), hsl(158 64% 62%));
+    --gradient-warning: linear-gradient(135deg, hsl(45 93% 58%), hsl(45 93% 68%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(262 83% 98%) 100%);
+    --gradient-teal: linear-gradient(135deg, hsl(170 97% 15%) 0%, hsl(170 97% 25%) 100%);
+    
+    /* Sophisticated Shadows */
+    --shadow-card: 0 1px 3px 0 hsl(220 13% 18% / 0.1), 0 1px 2px -1px hsl(220 13% 18% / 0.1);
+    --shadow-hover: 0 10px 15px -3px hsl(262 83% 58% / 0.1), 0 4px 6px -4px hsl(262 83% 58% / 0.1);
+    --shadow-glow: 0 0 0 1px hsl(262 83% 58% / 0.05), 0 0 20px hsl(262 83% 58% / 0.1);
+    --shadow-slate: 0 4px 6px -1px hsl(220 13% 18% / 0.1), 0 2px 4px -2px hsl(220 13% 18% / 0.1);
+    
+    /* Smooth Transitions */
+    --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* System Colors */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 13% 18%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark Theme - Professional Night Mode */
+    --background: 220 13% 9%;
+    --foreground: 220 13% 91%;
+    
+    /* Primary - Bright Purple in Dark */
+    --primary: 262 83% 68%;
+    --primary-foreground: 220 13% 9%;
+    --primary-light: 262 83% 78%;
+    --primary-dark: 262 83% 58%;
+    
+    /* Secondary - Dark Slate */
+    --secondary: 220 13% 18%;
+    --secondary-foreground: 220 13% 91%;
+    --secondary-dark: 220 13% 28%;
+    
+    /* Success - Bright Teal */
+    --success: 158 64% 62%;
+    --success-light: 158 64% 72%;
+    --success-foreground: 220 13% 9%;
+    --success-muted: 158 64% 15%;
+    
+    /* Warning - Bright Gold */
+    --warning: 45 93% 68%;
+    --warning-light: 45 93% 78%;
+    --warning-foreground: 220 13% 9%;
+    --warning-muted: 45 93% 15%;
+    
+    /* Accent - Bright Teal */
+    --accent: 170 97% 35%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 170 97% 45%;
+    
+    /* Cards & Surfaces */
+    --card: 220 13% 12%;
+    --card-foreground: 220 13% 91%;
+    --card-hover: 262 83% 18%;
+    --card-border: 220 13% 28%;
+    
+    /* Text Hierarchy */
+    --muted: 220 13% 18%;
+    --muted-foreground: 220 13% 69%;
+    --subtle: 220 13% 46%;
+    
+    /* Interactive Elements */
+    --border: 220 13% 28%;
+    --input: 220 13% 28%;
+    --ring: 262 83% 68%;
+    
+    /* Dark Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(262 83% 68%), hsl(262 83% 78%));
+    --gradient-secondary: linear-gradient(135deg, hsl(220 13% 18%), hsl(220 13% 28%));
+    --gradient-hero: linear-gradient(135deg, hsl(262 83% 68%) 0%, hsl(170 97% 35%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(158 64% 62%), hsl(158 64% 72%));
+    --gradient-warning: linear-gradient(135deg, hsl(45 93% 68%), hsl(45 93% 78%));
+    --gradient-card: linear-gradient(145deg, hsl(220 13% 12%) 0%, hsl(262 83% 18%) 100%);
+    --gradient-teal: linear-gradient(135deg, hsl(170 97% 35%) 0%, hsl(170 97% 45%) 100%);
+    
+    /* Dark Shadows */
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.3), 0 1px 2px -1px hsl(0 0% 0% / 0.3);
+    --shadow-hover: 0 10px 15px -3px hsl(262 83% 68% / 0.3), 0 4px 6px -4px hsl(262 83% 68% / 0.3);
+    --shadow-glow: 0 0 0 1px hsl(262 83% 68% / 0.2), 0 0 20px hsl(262 83% 68% / 0.3);
+    --shadow-slate: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -2px hsl(0 0% 0% / 0.3);
+    
+    /* System Colors */
+    --destructive: 0 72% 61%;
+    --destructive-foreground: 0 0% 100%;
+    --popover: 220 13% 12%;
+    --popover-foreground: 220 13% 91%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
