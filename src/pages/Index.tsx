@@ -155,10 +155,10 @@ const Index = () => {
     { number: mockStats.totalColleges.toLocaleString(), label: 'Listed Colleges' },
     { number: mockStats.activeUsers.toLocaleString(), label: 'Active Users' },
   ] : [
-    { number: '50K+', label: 'Students Guided' },
+    { number: '200+', label: 'Career Paths Explored' },
     { number: '500+', label: 'Listed Colleges' },
     { number: '1000+', label: 'Scholarships Listed' },
-    { number: '95%', label: 'Success Rate' },
+    { number: '85%', label: 'Career Assignments Taken' },
   ];
 
   return (
