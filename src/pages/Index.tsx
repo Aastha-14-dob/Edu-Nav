@@ -7,7 +7,21 @@ import { testimonials } from '@/data/mockData';
 import { mockStats, mockStudents, mockColleges, mockScholarships, mockQuizResults } from '@/data/adminMockData';
 import { useAuth } from '@/lib/auth';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, AreaChart, Area } from 'recharts';
+import { 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  ResponsiveContainer, 
+  PieChart, 
+  Pie, 
+  Cell, 
+  LineChart, 
+  Line, 
+  AreaChart, 
+  Area 
+} from 'recharts';
 import { 
   Brain, 
   MapPin, 
@@ -23,10 +37,9 @@ import {
   CheckCircle,
   Award,
   BarChart3,
-  Settings,
-  PieChart as PieChartIcon,
-  LineChart as LineChartIcon
+  Settings
 } from 'lucide-react';
+import { PieChart as PieChartIcon, LineChart as LineChartIcon } from 'lucide-react';
 
 const Index = () => {
   const { user } = useAuth();
