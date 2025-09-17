@@ -185,7 +185,7 @@
   [data-animate] {
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 600ms ease, transform 600ms ease;
+    transition: opacity 800ms ease-in-out, transform 800ms ease-in-out;
     will-change: opacity, transform;
   }
   [data-animate].in-view {
@@ -194,6 +194,21 @@
   }
   /* Optional: allow stagger via inline style --delay (ms) */
   [data-animate][style*="--delay"] {
+    transition-delay: var(--delay);
+  }
+
+  /* Support for child-based stagger elements */
+  [data-animate-child] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 800ms ease-in-out, transform 800ms ease-in-out;
+    will-change: opacity, transform;
+  }
+  [data-animate-child].in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  [data-animate-child][style*="--delay"] {
     transition-delay: var(--delay);
   }
 }

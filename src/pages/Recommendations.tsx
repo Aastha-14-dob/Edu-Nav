@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { 
   TrendingUp, 
-  DollarSign, 
+  IndianRupee, 
   Clock, 
   Users,
   Star,
@@ -201,7 +201,7 @@ export default function Recommendations() {
                       {/* Key Metrics */}
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div className="text-center">
-                          <DollarSign className="h-5 w-5 text-primary mx-auto mb-1" />
+                          <IndianRupee className="h-5 w-5 text-primary mx-auto mb-1" />
                           <div className="text-sm font-medium">{career.salaryRange}</div>
                           <div className="text-xs text-muted-foreground">Salary Range</div>
                         </div>

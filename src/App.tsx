@@ -55,6 +55,16 @@ function ScrollAnimator() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             (entry.target as HTMLElement).classList.add('in-view');
+            // Stagger support for children
+            const staggerAttr = (entry.target as HTMLElement).getAttribute('data-stagger');
+            const stagger = staggerAttr ? parseInt(staggerAttr, 10) : 0;
+            if (stagger > 0) {
+              const children = Array.from((entry.target as HTMLElement).querySelectorAll('[data-animate-child]')) as HTMLElement[];
+              children.forEach((child, idx) => {
+                child.style.setProperty('--delay', `${idx * stagger}ms`);
+                child.classList.add('in-view');
+              });
+            }
             obs.unobserve(entry.target);
           }
         });

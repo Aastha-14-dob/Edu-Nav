@@ -10,7 +10,7 @@ import {
   GitCompare, 
   GraduationCap, 
   TrendingUp,
-  DollarSign,
+  IndianRupee,
   BarChart3,
   Target,
   Users,
@@ -67,7 +67,7 @@ export default function ParentDashboard() {
     {
       title: 'Investment Planning',
       description: 'Plan education expenses and explore funding options',
-      icon: DollarSign,
+      icon: IndianRupee,
       href: '/investment-planning',
     },
   ];
@@ -120,7 +120,7 @@ export default function ParentDashboard() {
       title: 'Consider Education Loan',
       description: 'Explore pre-approved education loan options for better interest rates',
       priority: 'low',
-      icon: DollarSign,
+      icon: IndianRupee,
     },
   ];
 

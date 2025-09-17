@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
   Clock, 
-  DollarSign, 
+  IndianRupee, 
   Users, 
   BookOpen,
   ArrowLeft,
@@ -324,7 +324,7 @@ export default function CourseDetails() {
           </Card>
           <Card className="shadow-card">
             <CardContent className="p-4 text-center">
-              <DollarSign className="h-8 w-8 text-success mx-auto mb-2" />
+              <IndianRupee className="h-8 w-8 text-success mx-auto mb-2" />
               <div className="text-lg font-bold text-foreground">{course.expectedPackage}</div>
               <div className="text-sm text-muted-foreground">Expected Package</div>
             </CardContent>

@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { 
   Search, 
   Calendar, 
-  DollarSign, 
+  IndianRupee, 
   Users, 
   CheckCircle2,
   Clock,
@@ -232,7 +232,7 @@ export default function Scholarships() {
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex items-center space-x-2">
-                      <DollarSign className="h-4 w-4 text-primary" />
+                      <IndianRupee className="h-4 w-4 text-primary" />
                       <div>
                         <div className="text-sm font-medium">{scholarship.amount}</div>
                         <div className="text-xs text-muted-foreground">Scholarship Amount</div>

@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { 
   ArrowLeft, 
   Calendar, 
-  DollarSign, 
+  IndianRupee, 
   Users, 
   CheckCircle2,
   Clock,
@@ -112,7 +112,7 @@ export default function ScholarshipDetails() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <Card className="shadow-card">
             <CardContent className="p-4 text-center">
-              <DollarSign className="h-6 w-6 text-primary mx-auto mb-2" />
+              <IndianRupee className="h-6 w-6 text-primary mx-auto mb-2" />
               <div className="text-lg font-bold text-foreground">{scholarship.amount}</div>
               <div className="text-sm text-muted-foreground">Scholarship Amount</div>
             </CardContent>

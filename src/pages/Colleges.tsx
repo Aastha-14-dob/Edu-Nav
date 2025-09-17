@@ -10,7 +10,7 @@ import {
   Search, 
   Star, 
   Users, 
-  DollarSign, 
+  IndianRupee, 
   Calendar,
   GraduationCap,
   Filter,
@@ -178,7 +178,7 @@ export default function Colleges() {
                       <span className="text-sm font-medium">{college.rating}/5.0</span>
                     </div>
                     <div className="flex items-center space-x-2 text-primary font-semibold">
-                      <DollarSign className="h-4 w-4" />
+                      <IndianRupee className="h-4 w-4" />
                       <span>{college.fees}</span>
                     </div>
                   </div>

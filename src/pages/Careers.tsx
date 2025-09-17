@@ -8,7 +8,7 @@ import {
   Search, 
   TrendingUp, 
   Users, 
-  DollarSign, 
+  IndianRupee, 
   MapPin,
   Building2,
   Clock,
@@ -189,7 +189,7 @@ export default function Careers() {
                       <span className="text-sm">{career.experience}</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <DollarSign className="h-4 w-4 text-accent" />
+                      <IndianRupee className="h-4 w-4 text-accent" />
                       <span className="text-sm font-medium">{career.salary}</span>
                     </div>
                     <div className="flex items-center space-x-2">

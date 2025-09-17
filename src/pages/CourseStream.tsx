@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
   Clock, 
-  DollarSign, 
+  IndianRupee, 
   Users, 
   TrendingUp, 
   BookOpen, 
@@ -316,7 +316,7 @@ export default function CourseStream() {
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <DollarSign className="h-4 w-4 text-success" />
+                      <IndianRupee className="h-4 w-4 text-success" />
                       <div>
                         <div className="text-sm font-medium">{course.expectedPackage}</div>
                         <div className="text-xs text-muted-foreground">Expected Package</div>
