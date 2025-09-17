@@ -11,7 +11,7 @@ import {
   TrendingUp, 
   Users, 
   BookOpen, 
-  DollarSign, 
+  IndianRupee, 
   ArrowRight,
   RotateCcw,
   Briefcase
@@ -244,7 +244,7 @@ export default function QuizResults() {
                             <div className="font-medium">{career.title}</div>
                             <div className="flex items-center justify-between text-sm text-muted-foreground">
                               <span className="flex items-center">
-                                <DollarSign className="h-3 w-3 mr-1" />
+                                <IndianRupee className="h-3 w-3 mr-1" />
                                 {career.package}
                               </span>
                               <span className={`flex items-center ${getGrowthColor(career.growth)}`}>

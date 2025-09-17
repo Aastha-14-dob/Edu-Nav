@@ -8,7 +8,7 @@ import {
   BookOpen, 
   Users, 
   TrendingUp, 
-  DollarSign, 
+  IndianRupee, 
   Clock,
   GraduationCap,
   Code,

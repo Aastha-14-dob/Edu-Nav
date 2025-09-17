@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { 
   TrendingUp, 
   TrendingDown,
-  DollarSign, 
+  IndianRupee, 
   Users, 
   Clock,
   AlertTriangle,
@@ -207,7 +207,7 @@ export default function RealityChecker() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                   {[
                     { label: 'Market Demand', value: career.marketDemand, icon: TrendingUp },
-                    { label: 'Avg Salary', value: career.averageSalary, icon: DollarSign },
+                    { label: 'Avg Salary', value: career.averageSalary, icon: IndianRupee },
                     { label: 'Job Growth', value: career.jobGrowth, icon: BarChart3 },
                     { label: 'Job Security', value: career.jobSecurity, icon: CheckCircle2 },
                     { label: 'Saturation', value: career.saturationLevel, icon: Users },
