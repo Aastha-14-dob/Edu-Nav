@@ -157,10 +157,17 @@ const Index = () => {
     { value: mockStats.totalColleges, label: 'Listed Colleges', suffix: '' },
     { value: mockStats.activeUsers, label: 'Active Users', suffix: '' },
   ] : [
+<<<<<<< HEAD
     { value: 200, label: 'Career Paths Explored', suffix: '+' },
     { value: 500, label: 'Listed Colleges', suffix: '+' },
     { value: 1000, label: 'Scholarships Listed', suffix: '+' },
     { value: 15000, label: 'Career Assessments Taken', suffix: '+' },
+=======
+    { number: '200+', label: 'Career Paths Explored' },
+    { number: '500+', label: 'Listed Colleges' },
+    { number: '1000+', label: 'Scholarships Listed' },
+    { number: '85%', label: 'Career Assignments Taken' },
+>>>>>>> origin/main
   ];
 
   function AnimatedNumber({ value, duration = 3000, suffix = '' }: { value: number; duration?: number; suffix?: string }) {
