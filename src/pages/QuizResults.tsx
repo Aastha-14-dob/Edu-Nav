@@ -57,23 +57,77 @@ const careerDetails = {
   }
 };
 
+type Institute = {
+  name: string;
+  location: string;
+  established: number;
+  rating: number;
+  type: string;
+  fees: string;
+  courses: string[];
+  cutoff: string;
+};
+
 export default function QuizResults() {
   const [score, setScore] = useState<QuizScore | null>(null);
   const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [institutes, setInstitutes] = useState<Institute[]>([]);
+  const [loadingInstitutes, setLoadingInstitutes] = useState(false);
+  const [instituteError, setInstituteError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  const apiBase = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:5000';
 
   useEffect(() => {
     const savedScore = localStorage.getItem('quizScore');
     const savedAnswers = localStorage.getItem('quizAnswers');
     
     if (savedScore && savedAnswers) {
-      setScore(JSON.parse(savedScore));
-      setAnswers(JSON.parse(savedAnswers));
+      const parsedScore: QuizScore = JSON.parse(savedScore);
+      const parsedAnswers: Record<string, number> = JSON.parse(savedAnswers);
+      setScore(parsedScore);
+      setAnswers(parsedAnswers);
+
+      // Kick off backend request with full 8 answers
+      fetchInstitutes(parsedScore, parsedAnswers);
     } else {
       // Redirect to quiz if no results found
       navigate('/quiz');
     }
   }, [navigate]);
+
+  const fetchInstitutes = async (quizScore: QuizScore, quizAnswers: Record<string, number>) => {
+    try {
+      setLoadingInstitutes(true);
+      setInstituteError(null);
+
+      // Derive strengths as top categories, interests from recommendations
+      const categoriesSorted = Object.entries(quizScore.categories).sort((a, b) => b[1] - a[1]).map(([name]) => name);
+      const strengths = categoriesSorted.slice(0, 3);
+      const interests = quizScore.recommendations.slice(0, 3);
+
+      const payload = {
+        profile: { name: 'Student', class: '12', location: '' },
+        quizResult: { strengths, interests, rawAnswers: quizAnswers },
+        preferences: { goal: 'Higher Studies' }
+      };
+
+      const res = await fetch(`${apiBase}/api/career-suggestions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) throw new Error('Failed to fetch institutes');
+      const data = await res.json();
+      setInstitutes(Array.isArray(data.institutes) ? data.institutes : []);
+    } catch (err: any) {
+      setInstituteError(err?.message || 'Something went wrong');
+      setInstitutes([]);
+    } finally {
+      setLoadingInstitutes(false);
+    }
+  };
 
   if (!score) {
     return (
@@ -237,6 +291,70 @@ export default function QuizResults() {
               </Card>
             );
           })}
+        </div>
+
+        {/* Institutes from Backend */}
+        <div className="mt-10">
+          <Card className="shadow-card">
+            <CardHeader>
+              <CardTitle className="text-xl">Recommended Institutes</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {loadingInstitutes && (
+                <div className="text-muted-foreground">Loading recommendations…</div>
+              )}
+              {instituteError && (
+                <div className="text-destructive text-sm">{instituteError}</div>
+              )}
+              {!loadingInstitutes && !instituteError && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {institutes.map((inst, idx) => (
+                    <Card key={`${inst.name}-${idx}`} className="shadow-card">
+                      <CardHeader>
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="text-lg">{inst.name}</CardTitle>
+                          <Badge variant="outline">{inst.type}</Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{inst.location}</p>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid grid-cols-2 gap-4 text-sm">
+                          <div>
+                            <div className="font-medium">Established</div>
+                            <div className="text-muted-foreground">{inst.established}</div>
+                          </div>
+                          <div>
+                            <div className="font-medium">Rating</div>
+                            <div className="text-muted-foreground">{inst.rating?.toFixed ? inst.rating.toFixed(1) : inst.rating}</div>
+                          </div>
+                          <div>
+                            <div className="font-medium">Fees</div>
+                            <div className="text-muted-foreground">{inst.fees}</div>
+                          </div>
+                          <div>
+                            <div className="font-medium">Cut-off</div>
+                            <div className="text-muted-foreground">{inst.cutoff}</div>
+                          </div>
+                        </div>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {inst.courses?.slice(0,4).map((course, cidx) => (
+                            <Badge key={cidx} variant="secondary">{course}</Badge>
+                          ))}
+                        </div>
+                        <div className="mt-4 flex gap-3">
+                          <Button size="sm">View Details</Button>
+                          <Button size="sm" variant="outline">Courses</Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                  {institutes.length === 0 && (
+                    <div className="text-muted-foreground text-sm">No results yet. Complete the quiz to get recommendations.</div>
+                  )}
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </div>
 
         {/* Action Buttons */}
