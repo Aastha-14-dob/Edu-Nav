@@ -59,9 +59,11 @@ export default function AdminSettings() {
         <CardContent className="space-y-6">
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-semibold">Current Administrators</h3>
-            <Button variant="hero" size="sm">
-              <Plus className="mr-2 h-4 w-4" />
-              Add Admin
+            <Button asChild variant="hero" size="sm">
+              <a href="/admin/settings/admins">
+                <Plus className="mr-2 h-4 w-4" />
+                New Admin
+              </a>
             </Button>
           </div>
           
@@ -92,7 +94,9 @@ export default function AdminSettings() {
                         <Eye className="h-4 w-4" />
                       </Button>
                       <Button variant="ghost" size="sm">
-                        <Trash2 className="h-4 w-4 text-destructive" />
+                        <a href="/admin/settings/admins" className="flex items-center">
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                        </a>
                       </Button>
                     </div>
                   </TableCell>

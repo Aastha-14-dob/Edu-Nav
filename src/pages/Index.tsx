@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import FeatureCard from '@/components/FeatureCard';
 import Navbar from '@/components/Navbar';
 import { testimonials } from '@/data/mockData';
-import { mockStats, mockStudents, mockColleges, mockScholarships, mockQuizResults } from '@/data/adminMockData';
+import { mockStats } from '@/data/adminMockData';
 import { useAuth } from '@/lib/auth';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { 
@@ -54,36 +54,14 @@ const Index = () => {
     { month: 'Jun', students: mockStats.totalStudents, parents: mockStats.totalParents, activeUsers: mockStats.activeUsers },
   ];
 
-  const collegeTypeData = [
-    { name: 'Government', value: mockColleges.filter(c => c.type === 'Government').length, fill: 'hsl(var(--primary))' },
-    { name: 'Private', value: mockColleges.filter(c => c.type === 'Private').length, fill: 'hsl(var(--success))' },
-    { name: 'Deemed', value: mockColleges.filter(c => c.type === 'Deemed').length, fill: 'hsl(var(--warning))' },
+  const streamDistribution = [
+    { name: 'Science (Maths)', value: 34, fill: '#6B46C1' }, // purple
+    { name: 'Science (Bio)', value: 28, fill: '#14B8A6' },   // teal
+    { name: 'Commerce', value: 22, fill: '#F59E0B' },        // amber
+    { name: 'Arts', value: 16, fill: '#3B82F6' },            // blue
   ];
 
-  const quizPerformanceData = mockQuizResults.map(result => ({
-    student: result.studentName.split(' ')[0],
-    score: result.score,
-    timeTaken: parseInt(result.timeTaken.split(' ')[0]) || 25,
-  }));
-
-  const scholarshipData = [
-    { range: '0-50K', count: mockScholarships.filter(s => {
-      const amount = parseInt(s.amount.replace(/[₹,]/g, ''));
-      return amount <= 50000;
-    }).length },
-    { range: '50K-1L', count: mockScholarships.filter(s => {
-      const amount = parseInt(s.amount.replace(/[₹,]/g, ''));
-      return amount > 50000 && amount <= 100000;
-    }).length },
-    { range: '1L-5L', count: mockScholarships.filter(s => {
-      const amount = parseInt(s.amount.replace(/[₹,]/g, ''));
-      return amount > 100000 && amount <= 500000;
-    }).length },
-    { range: '5L+', count: mockScholarships.filter(s => {
-      const amount = parseInt(s.amount.replace(/[₹,]/g, ''));
-      return amount > 500000;
-    }).length },
-  ];
+  // Removed quizPerformanceData and scholarshipData as per new admin requirements
 
   const chartConfig = {
     students: { label: 'Students', color: 'hsl(var(--primary))' },
@@ -225,9 +203,6 @@ const Index = () => {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <Link to="/about">Learn More</Link>
-                </Button>
               </div>
             )}
 
@@ -282,12 +257,12 @@ const Index = () => {
                 </CardContent>
               </Card>
 
-              {/* College Types Distribution */}
+              {/* Stream wise distribution (replaces College Types Distribution) */}
               <Card className="shadow-hover">
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <PieChartIcon className="mr-2 h-5 w-5 text-primary" />
-                    College Types Distribution
+                    Stream wise distribution
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -295,15 +270,15 @@ const Index = () => {
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
                         <Pie
-                          data={collegeTypeData}
+                          data={streamDistribution}
                           cx="50%"
                           cy="50%"
-                          innerRadius={40}
-                          outerRadius={80}
-                          paddingAngle={5}
+                          innerRadius={20}
+                          outerRadius={100}
+                          paddingAngle={3}
                           dataKey="value"
                         >
-                          {collegeTypeData.map((entry, index) => (
+                          {streamDistribution.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={entry.fill} />
                           ))}
                         </Pie>
@@ -314,54 +289,7 @@ const Index = () => {
                 </CardContent>
               </Card>
             </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Quiz Performance */}
-              <Card className="shadow-hover">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <BarChart3 className="mr-2 h-5 w-5 text-primary" />
-                    Recent Quiz Performance
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ChartContainer config={chartConfig} className="h-64">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={quizPerformanceData}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                        <XAxis dataKey="student" stroke="hsl(var(--muted-foreground))" />
-                        <YAxis stroke="hsl(var(--muted-foreground))" />
-                        <ChartTooltip content={<ChartTooltipContent />} />
-                        <Bar dataKey="score" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </ChartContainer>
-                </CardContent>
-              </Card>
-
-              {/* Scholarship Distribution */}
-              <Card className="shadow-hover">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Award className="mr-2 h-5 w-5 text-primary" />
-                    Scholarship Amount Distribution
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ChartContainer config={chartConfig} className="h-64">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={scholarshipData}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                        <XAxis dataKey="range" stroke="hsl(var(--muted-foreground))" />
-                        <YAxis stroke="hsl(var(--muted-foreground))" />
-                        <ChartTooltip content={<ChartTooltipContent />} />
-                        <Bar dataKey="count" fill="hsl(var(--success))" radius={[4, 4, 0, 0]} />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </ChartContainer>
-                </CardContent>
-              </Card>
-            </div>
+            {/* Removed Recent Quiz Performance and Scholarship Amount Distribution */}
           </div>
         </section>
       )}
