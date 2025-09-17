@@ -19,6 +19,7 @@ export default function Navbar() {
 
   const navigation = user?.role === 'admin' ? [
     { name: 'Home', href: '/' },
+    { name: 'Settings', href: '/admin/settings' },
   ] : [
     { name: 'Home', href: '/' },
     { name: 'Explore', href: '/explore' },

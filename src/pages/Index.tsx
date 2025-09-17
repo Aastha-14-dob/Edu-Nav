@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import FeatureCard from '@/components/FeatureCard';
 import Navbar from '@/components/Navbar';
 import { testimonials } from '@/data/mockData';
-import { mockStats } from '@/data/adminMockData';
+import { mockStats, mockStudents, mockColleges, mockScholarships, mockQuizResults } from '@/data/adminMockData';
 import { useAuth } from '@/lib/auth';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, AreaChart, Area } from 'recharts';
 import { 
   Brain, 
   MapPin, 
@@ -21,11 +23,63 @@ import {
   CheckCircle,
   Award,
   BarChart3,
-  Settings
+  Settings,
+  PieChart as PieChartIcon,
+  LineChart as LineChartIcon
 } from 'lucide-react';
 
 const Index = () => {
   const { user } = useAuth();
+
+  // Prepare chart data for admin dashboard
+  const userGrowthData = [
+    { month: 'Jan', students: 850, parents: 420, activeUsers: 900 },
+    { month: 'Feb', students: 920, parents: 460, activeUsers: 1050 },
+    { month: 'Mar', students: 1200, parents: 580, activeUsers: 1300 },
+    { month: 'Apr', students: 1450, parents: 710, activeUsers: 1600 },
+    { month: 'May', students: 1680, parents: 840, activeUsers: 1850 },
+    { month: 'Jun', students: mockStats.totalStudents, parents: mockStats.totalParents, activeUsers: mockStats.activeUsers },
+  ];
+
+  const collegeTypeData = [
+    { name: 'Government', value: mockColleges.filter(c => c.type === 'Government').length, fill: 'hsl(var(--primary))' },
+    { name: 'Private', value: mockColleges.filter(c => c.type === 'Private').length, fill: 'hsl(var(--success))' },
+    { name: 'Deemed', value: mockColleges.filter(c => c.type === 'Deemed').length, fill: 'hsl(var(--warning))' },
+  ];
+
+  const quizPerformanceData = mockQuizResults.map(result => ({
+    student: result.studentName.split(' ')[0],
+    score: result.score,
+    timeTaken: parseInt(result.timeTaken.split(' ')[0]) || 25,
+  }));
+
+  const scholarshipData = [
+    { range: '0-50K', count: mockScholarships.filter(s => {
+      const amount = parseInt(s.amount.replace(/[₹,]/g, ''));
+      return amount <= 50000;
+    }).length },
+    { range: '50K-1L', count: mockScholarships.filter(s => {
+      const amount = parseInt(s.amount.replace(/[₹,]/g, ''));
+      return amount > 50000 && amount <= 100000;
+    }).length },
+    { range: '1L-5L', count: mockScholarships.filter(s => {
+      const amount = parseInt(s.amount.replace(/[₹,]/g, ''));
+      return amount > 100000 && amount <= 500000;
+    }).length },
+    { range: '5L+', count: mockScholarships.filter(s => {
+      const amount = parseInt(s.amount.replace(/[₹,]/g, ''));
+      return amount > 500000;
+    }).length },
+  ];
+
+  const chartConfig = {
+    students: { label: 'Students', color: 'hsl(var(--primary))' },
+    parents: { label: 'Parents', color: 'hsl(var(--success))' },
+    activeUsers: { label: 'Active Users', color: 'hsl(var(--warning))' },
+    score: { label: 'Score', color: 'hsl(var(--primary))' },
+    count: { label: 'Count', color: 'hsl(var(--primary))' },
+  };
+
   const features = [
     {
       title: 'Aptitude Test',
@@ -97,10 +151,10 @@ const Index = () => {
       href: '/admin/quizzes',
     },
     {
-      title: 'System Settings',
-      description: 'Configure system settings and manage testimonials',
-      icon: Settings,
-      href: '/admin/settings',
+      title: 'Testimonials',
+      description: 'Review and manage student testimonials and feedback',
+      icon: MessageCircle,
+      href: '/admin/testimonials',
     },
   ];
 
@@ -121,7 +175,7 @@ const Index = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 overflow-hidden">
+      <section className="relative pt-20 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero opacity-10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-8">
@@ -129,12 +183,11 @@ const Index = () => {
               {user?.role === 'admin' ? (
                 <>
                   <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-                    Admin
-                    <span className="bg-gradient-primary bg-clip-text text-transparent"> Control Panel</span>
+                    Analytics
+                    <span className="bg-gradient-primary bg-clip-text text-transparent"> Dashboard</span>
                   </h1>
                   <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                    Manage your EduNav platform with comprehensive tools for students, parents, colleges, 
-                    and scholarships administration.
+                    Real-time insights and analytics for your EduNav platform performance and user engagement.
                   </p>
                 </>
               ) : (
@@ -177,6 +230,128 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Admin Analytics Dashboard */}
+      {user?.role === 'admin' && (
+        <section className="py-12 bg-muted/30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Platform Analytics & Insights
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Monitor user growth, performance metrics, and platform usage patterns.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              {/* User Growth Chart */}
+              <Card className="shadow-hover">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <LineChartIcon className="mr-2 h-5 w-5 text-primary" />
+                    User Growth Trends
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer config={chartConfig} className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={userGrowthData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                        <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" />
+                        <YAxis stroke="hsl(var(--muted-foreground))" />
+                        <ChartTooltip content={<ChartTooltipContent />} />
+                        <Area type="monotone" dataKey="students" stackId="1" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" fillOpacity={0.6} />
+                        <Area type="monotone" dataKey="parents" stackId="1" stroke="hsl(var(--success))" fill="hsl(var(--success))" fillOpacity={0.6} />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
+
+              {/* College Types Distribution */}
+              <Card className="shadow-hover">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <PieChartIcon className="mr-2 h-5 w-5 text-primary" />
+                    College Types Distribution
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer config={chartConfig} className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={collegeTypeData}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={40}
+                          outerRadius={80}
+                          paddingAngle={5}
+                          dataKey="value"
+                        >
+                          {collegeTypeData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.fill} />
+                          ))}
+                        </Pie>
+                        <ChartTooltip content={<ChartTooltipContent />} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Quiz Performance */}
+              <Card className="shadow-hover">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <BarChart3 className="mr-2 h-5 w-5 text-primary" />
+                    Recent Quiz Performance
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer config={chartConfig} className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={quizPerformanceData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                        <XAxis dataKey="student" stroke="hsl(var(--muted-foreground))" />
+                        <YAxis stroke="hsl(var(--muted-foreground))" />
+                        <ChartTooltip content={<ChartTooltipContent />} />
+                        <Bar dataKey="score" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
+
+              {/* Scholarship Distribution */}
+              <Card className="shadow-hover">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Award className="mr-2 h-5 w-5 text-primary" />
+                    Scholarship Amount Distribution
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer config={chartConfig} className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={scholarshipData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                        <XAxis dataKey="range" stroke="hsl(var(--muted-foreground))" />
+                        <YAxis stroke="hsl(var(--muted-foreground))" />
+                        <ChartTooltip content={<ChartTooltipContent />} />
+                        <Bar dataKey="count" fill="hsl(var(--success))" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Features Section */}
       <section className="py-20 bg-muted/30">
