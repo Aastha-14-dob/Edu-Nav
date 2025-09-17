@@ -40,6 +40,7 @@ import {
   Settings
 } from 'lucide-react';
 import { PieChart as PieChartIcon, LineChart as LineChartIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const Index = () => {
   const { user } = useAuth();
@@ -149,17 +150,40 @@ const Index = () => {
     },
   ];
 
-  const stats = user?.role === 'admin' ? [
-    { number: mockStats.totalStudents.toLocaleString(), label: 'Total Students' },
-    { number: mockStats.totalParents.toLocaleString(), label: 'Total Parents' },
-    { number: mockStats.totalColleges.toLocaleString(), label: 'Listed Colleges' },
-    { number: mockStats.activeUsers.toLocaleString(), label: 'Active Users' },
+  const isAdmin = user?.role === 'admin';
+  const stats = isAdmin ? [
+    { value: mockStats.totalStudents, label: 'Total Students', suffix: '' },
+    { value: mockStats.totalParents, label: 'Total Parents', suffix: '' },
+    { value: mockStats.totalColleges, label: 'Listed Colleges', suffix: '' },
+    { value: mockStats.activeUsers, label: 'Active Users', suffix: '' },
   ] : [
-    { number: '50K+', label: 'Students Guided' },
-    { number: '500+', label: 'Listed Colleges' },
-    { number: '1000+', label: 'Scholarships Listed' },
-    { number: '95%', label: 'Success Rate' },
+    { value: 200, label: 'Career Paths Explored', suffix: '+' },
+    { value: 500, label: 'Listed Colleges', suffix: '+' },
+    { value: 1000, label: 'Scholarships Listed', suffix: '+' },
+    { value: 15000, label: 'Career Assessments Taken', suffix: '+' },
   ];
+
+  function AnimatedNumber({ value, duration = 3000, suffix = '' }: { value: number; duration?: number; suffix?: string }) {
+    const [displayValue, setDisplayValue] = useState(0);
+    useEffect(() => {
+      let startTimestamp: number | null = null;
+      let rafId: number;
+      const step = (timestamp: number) => {
+        if (startTimestamp === null) startTimestamp = timestamp;
+        const elapsed = timestamp - startTimestamp;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(eased * value);
+        setDisplayValue(current);
+        if (progress < 1) {
+          rafId = requestAnimationFrame(step);
+        }
+      };
+      rafId = requestAnimationFrame(step);
+      return () => cancelAnimationFrame(rafId);
+    }, [value, duration]);
+    return <span>{displayValue.toLocaleString()}{suffix}</span>;
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -206,11 +230,18 @@ const Index = () => {
               </div>
             )}
 
-            {/* Quick stats */}
+            {/* Quick stats */
+            }
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary">{stat.number}</div>
+                  <div className="text-3xl md:text-4xl font-bold text-primary">
+                    {isAdmin ? (
+                      <span>{stat.value.toLocaleString()} {stat.suffix}</span>
+                    ) : (
+                      <AnimatedNumber value={stat.value} duration={3000} suffix={stat.suffix as string} />
+                    )}
+                  </div>
                   <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </div>
               ))}
