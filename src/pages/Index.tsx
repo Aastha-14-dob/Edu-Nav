@@ -4,6 +4,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import FeatureCard from '@/components/FeatureCard';
 import Navbar from '@/components/Navbar';
 import { testimonials } from '@/data/mockData';
+import { mockStats } from '@/data/adminMockData';
+import { useAuth } from '@/lib/auth';
 import { 
   Brain, 
   MapPin, 
@@ -16,10 +18,14 @@ import {
   Shield,
   Users,
   ArrowRight,
-  CheckCircle
+  CheckCircle,
+  Award,
+  BarChart3,
+  Settings
 } from 'lucide-react';
 
 const Index = () => {
+  const { user } = useAuth();
   const features = [
     {
       title: 'Aptitude Test',
@@ -59,7 +65,51 @@ const Index = () => {
     },
   ];
 
-  const stats = [
+  const adminFeatures = [
+    {
+      title: 'Manage Students',
+      description: 'View and manage all registered students, their progress and applications',
+      icon: Users,
+      href: '/admin/students',
+    },
+    {
+      title: 'Manage Parents',
+      description: 'Oversee parent accounts and their linked student relationships',
+      icon: Users,
+      href: '/admin/parents',
+    },
+    {
+      title: 'Manage Colleges',
+      description: 'Add, update and maintain the college database',
+      icon: GraduationCap,
+      href: '/admin/colleges',
+    },
+    {
+      title: 'Manage Scholarships',
+      description: 'Control scholarship listings and eligibility criteria',
+      icon: Award,
+      href: '/admin/scholarships',
+    },
+    {
+      title: 'Quiz Management',
+      description: 'Monitor career test results and quiz performance analytics',
+      icon: BarChart3,
+      href: '/admin/quizzes',
+    },
+    {
+      title: 'System Settings',
+      description: 'Configure system settings and manage testimonials',
+      icon: Settings,
+      href: '/admin/settings',
+    },
+  ];
+
+  const stats = user?.role === 'admin' ? [
+    { number: mockStats.totalStudents.toLocaleString(), label: 'Total Students' },
+    { number: mockStats.totalParents.toLocaleString(), label: 'Total Parents' },
+    { number: mockStats.totalColleges.toLocaleString(), label: 'Listed Colleges' },
+    { number: mockStats.activeUsers.toLocaleString(), label: 'Active Users' },
+  ] : [
     { number: '50K+', label: 'Students Guided' },
     { number: '500+', label: 'Listed Colleges' },
     { number: '1000+', label: 'Scholarships Listed' },
@@ -76,27 +126,44 @@ const Index = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-8">
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-                Navigate Your
-                <span className="bg-gradient-primary bg-clip-text text-transparent"> Educational Journey</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Discover your perfect career path with AI-powered guidance, personalized recommendations, 
-                and comprehensive resources for students and parents.
-              </p>
+              {user?.role === 'admin' ? (
+                <>
+                  <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
+                    Admin
+                    <span className="bg-gradient-primary bg-clip-text text-transparent"> Control Panel</span>
+                  </h1>
+                  <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                    Manage your EduNav platform with comprehensive tools for students, parents, colleges, 
+                    and scholarships administration.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
+                    Navigate Your
+                    <span className="bg-gradient-primary bg-clip-text text-transparent"> Educational Journey</span>
+                  </h1>
+                  <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                    Discover your perfect career path with AI-powered guidance, personalized recommendations, 
+                    and comprehensive resources for students and parents.
+                  </p>
+                </>
+              )}
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button variant="hero" size="lg" asChild>
-                <Link to="/signup">
-                  Get Started Free
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/about">Learn More</Link>
-              </Button>
-            </div>
+            {user?.role !== 'admin' && (
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button variant="hero" size="lg" asChild>
+                  <Link to="/signup">
+                    Get Started Free
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button variant="outline" size="lg" asChild>
+                  <Link to="/about">Learn More</Link>
+                </Button>
+              </div>
+            )}
 
             {/* Quick stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12">
@@ -115,16 +182,29 @@ const Index = () => {
       <section className="py-20 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Everything You Need for Educational Success
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Comprehensive tools and resources to guide your educational journey from career discovery to college admission.
-            </p>
+            {user?.role === 'admin' ? (
+              <>
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  Administrative Controls
+                </h2>
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                  Manage all aspects of your EduNav platform from students to scholarships.
+                </p>
+              </>
+            ) : (
+              <>
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  Everything You Need for Educational Success
+                </h2>
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                  Comprehensive tools and resources to guide your educational journey from career discovery to college admission.
+                </p>
+              </>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
+            {(user?.role === 'admin' ? adminFeatures : features).map((feature, index) => (
               <FeatureCard 
                 key={index} 
                 title={feature.title}

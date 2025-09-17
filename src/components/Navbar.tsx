@@ -18,14 +18,7 @@ export default function Navbar() {
   const location = useLocation();
 
   const navigation = user?.role === 'admin' ? [
-    { name: 'Dashboard', href: '/admin' },
-    { name: 'Students', href: '/admin/students' },
-    { name: 'Parents', href: '/admin/parents' },
-    { name: 'Colleges', href: '/admin/colleges' },
-    { name: 'Scholarships', href: '/admin/scholarships' },
-    { name: 'Quizzes', href: '/admin/quizzes' },
-    { name: 'Testimonials', href: '/admin/testimonials' },
-    { name: 'Settings', href: '/admin/settings' },
+    { name: 'Home', href: '/' },
   ] : [
     { name: 'Home', href: '/' },
     { name: 'Explore', href: '/explore' },
