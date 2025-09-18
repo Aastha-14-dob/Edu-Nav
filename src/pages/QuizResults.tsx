@@ -24,37 +24,175 @@ interface QuizScore {
   recommendations: string[];
 }
 
-const careerDetails = {
-  'Engineering & Technology': {
-    description: 'Strong analytical and problem-solving skills suggest a natural fit for engineering fields.',
+const getCareerDetails = (recommendation: string) => {
+  const careerDetails: Record<string, any> = {
+    'Engineering & Technology': {
+      description: 'Strong analytical and problem-solving skills suggest a natural fit for engineering fields.',
+      careers: [
+        { title: 'Software Engineer', package: '₹8-25 LPA', growth: 'High' },
+        { title: 'Data Scientist', package: '₹12-30 LPA', growth: 'Very High' },
+        { title: 'Cybersecurity Analyst', package: '₹10-20 LPA', growth: 'High' },
+        { title: 'DevOps Engineer', package: '₹10-22 LPA', growth: 'Very High' }
+      ],
+      courses: ['Computer Science', 'Information Technology', 'Electronics Engineering', 'Mechanical Engineering'],
+      skillsNeeded: ['Programming', 'Mathematics', 'Logical Thinking', 'Problem Solving']
+    },
+    'Data Science & Analytics': {
+      description: 'Your analytical mindset and interest in data-driven insights make you perfect for data science roles.',
+      careers: [
+        { title: 'Data Scientist', package: '₹12-35 LPA', growth: 'Very High' },
+        { title: 'Data Analyst', package: '₹6-18 LPA', growth: 'High' },
+        { title: 'Machine Learning Engineer', package: '₹15-40 LPA', growth: 'Very High' },
+        { title: 'Business Intelligence Analyst', package: '₹8-20 LPA', growth: 'High' }
+      ],
+      courses: ['Data Science', 'Statistics', 'Mathematics', 'Computer Science'],
+      skillsNeeded: ['Statistics', 'Programming', 'Data Visualization', 'Critical Thinking']
+    },
+    'Arts & Creative Fields': {
+      description: 'Your creative thinking and artistic interests align well with creative industries.',
+      careers: [
+        { title: 'Graphic Designer', package: '₹4-12 LPA', growth: 'Medium' },
+        { title: 'Content Creator', package: '₹6-15 LPA', growth: 'High' },
+        { title: 'UI/UX Designer', package: '₹8-18 LPA', growth: 'Very High' },
+        { title: 'Creative Director', package: '₹12-25 LPA', growth: 'High' }
+      ],
+      courses: ['Fine Arts', 'Graphic Design', 'Mass Communication', 'Digital Media'],
+      skillsNeeded: ['Creativity', 'Design Tools', 'Communication', 'Visual Thinking']
+    },
+    'Media & Communication': {
+      description: 'Your communication skills and creative flair make you ideal for media and communication roles.',
+      careers: [
+        { title: 'Journalist', package: '₹4-12 LPA', growth: 'Medium' },
+        { title: 'Content Writer', package: '₹5-15 LPA', growth: 'High' },
+        { title: 'Social Media Manager', package: '₹6-18 LPA', growth: 'Very High' },
+        { title: 'PR Executive', package: '₹7-20 LPA', growth: 'High' }
+      ],
+      courses: ['Mass Communication', 'Journalism', 'Digital Marketing', 'Public Relations'],
+      skillsNeeded: ['Writing', 'Communication', 'Social Media', 'Storytelling']
+    },
+    'Research & Academia': {
+      description: 'Your analytical thinking and love for learning make you perfect for research and academic careers.',
+      careers: [
+        { title: 'Research Scientist', package: '₹8-25 LPA', growth: 'Medium' },
+        { title: 'Professor', package: '₹10-30 LPA', growth: 'Medium' },
+        { title: 'Research Analyst', package: '₹6-18 LPA', growth: 'High' },
+        { title: 'Policy Analyst', package: '₹8-22 LPA', growth: 'Medium' }
+      ],
+      courses: ['Research Methods', 'Statistics', 'Academic Writing', 'Critical Analysis'],
+      skillsNeeded: ['Research', 'Analysis', 'Writing', 'Critical Thinking']
+    },
+    'Computer Science': {
+      description: 'Your technical aptitude and problem-solving skills align perfectly with computer science careers.',
+      careers: [
+        { title: 'Software Developer', package: '₹8-25 LPA', growth: 'Very High' },
+        { title: 'Full Stack Developer', package: '₹10-28 LPA', growth: 'Very High' },
+        { title: 'System Architect', package: '₹15-35 LPA', growth: 'High' },
+        { title: 'Technical Lead', package: '₹18-40 LPA', growth: 'High' }
+      ],
+      courses: ['Computer Science', 'Software Engineering', 'Web Development', 'Mobile Development'],
+      skillsNeeded: ['Programming', 'Algorithms', 'System Design', 'Problem Solving']
+    },
+    'Social Services & Psychology': {
+      description: 'Your empathy and people skills make you ideal for roles helping others.',
+      careers: [
+        { title: 'Clinical Psychologist', package: '₹6-15 LPA', growth: 'Medium' },
+        { title: 'Social Worker', package: '₹4-10 LPA', growth: 'Medium' },
+        { title: 'HR Manager', package: '₹8-20 LPA', growth: 'High' },
+        { title: 'Counselor', package: '₹5-12 LPA', growth: 'Medium' }
+      ],
+      courses: ['Psychology', 'Social Work', 'Human Resources', 'Counseling'],
+      skillsNeeded: ['Empathy', 'Communication', 'Problem Solving', 'Active Listening']
+    },
+    'Education & Training': {
+      description: 'Your social skills and desire to help others make you perfect for education and training roles.',
+      careers: [
+        { title: 'Teacher', package: '₹4-12 LPA', growth: 'Medium' },
+        { title: 'Educational Counselor', package: '₹5-15 LPA', growth: 'High' },
+        { title: 'Training Manager', package: '₹8-20 LPA', growth: 'High' },
+        { title: 'Curriculum Developer', package: '₹6-18 LPA', growth: 'Medium' }
+      ],
+      courses: ['Education', 'Psychology', 'Curriculum Design', 'Educational Technology'],
+      skillsNeeded: ['Teaching', 'Communication', 'Patience', 'Subject Knowledge']
+    },
+    'Vocational & Skill-Based': {
+      description: 'Your practical approach and hands-on skills make you perfect for vocational and skill-based careers.',
+      careers: [
+        { title: 'Electrician', package: '₹3-8 LPA', growth: 'Medium' },
+        { title: 'Plumber', package: '₹3-7 LPA', growth: 'Medium' },
+        { title: 'Mechanic', package: '₹3-9 LPA', growth: 'Medium' },
+        { title: 'Technician', package: '₹4-12 LPA', growth: 'High' }
+      ],
+      courses: ['Vocational Training', 'Technical Skills', 'Trade Certification', 'Apprenticeship'],
+      skillsNeeded: ['Manual Skills', 'Problem Solving', 'Technical Knowledge', 'Attention to Detail']
+    },
+    'Applied Sciences': {
+      description: 'Your practical mindset and scientific interest make you ideal for applied science careers.',
+      careers: [
+        { title: 'Lab Technician', package: '₹4-10 LPA', growth: 'Medium' },
+        { title: 'Quality Analyst', package: '₹5-12 LPA', growth: 'High' },
+        { title: 'Research Assistant', package: '₹4-8 LPA', growth: 'Medium' },
+        { title: 'Production Manager', package: '₹8-18 LPA', growth: 'High' }
+      ],
+      courses: ['Applied Sciences', 'Laboratory Techniques', 'Quality Control', 'Production Management'],
+      skillsNeeded: ['Scientific Method', 'Laboratory Skills', 'Quality Control', 'Problem Solving']
+    },
+    'Higher Education & Research': {
+      description: 'Your academic inclination and research mindset make you perfect for higher education and research.',
+      careers: [
+        { title: 'University Professor', package: '₹10-35 LPA', growth: 'Medium' },
+        { title: 'Research Fellow', package: '₹8-20 LPA', growth: 'Medium' },
+        { title: 'Academic Advisor', package: '₹6-15 LPA', growth: 'Medium' },
+        { title: 'Educational Researcher', package: '₹7-18 LPA', growth: 'Medium' }
+      ],
+      courses: ['Higher Education', 'Research Methodology', 'Academic Writing', 'Subject Expertise'],
+      skillsNeeded: ['Research', 'Teaching', 'Critical Thinking', 'Academic Writing']
+    },
+    'Healthcare & Wellness': {
+      description: 'Your caring nature and interest in helping others make you ideal for healthcare and wellness careers.',
+      careers: [
+        { title: 'Nurse', package: '₹4-10 LPA', growth: 'High' },
+        { title: 'Physical Therapist', package: '₹5-15 LPA', growth: 'High' },
+        { title: 'Health Educator', package: '₹4-12 LPA', growth: 'Medium' },
+        { title: 'Wellness Coach', package: '₹6-18 LPA', growth: 'High' }
+      ],
+      courses: ['Healthcare', 'Nursing', 'Physical Therapy', 'Health Education'],
+      skillsNeeded: ['Compassion', 'Medical Knowledge', 'Communication', 'Patient Care']
+    },
+    'Science & Mathematics': {
+      description: 'Your analytical skills and mathematical aptitude make you perfect for science and mathematics careers.',
+      careers: [
+        { title: 'Mathematician', package: '₹6-18 LPA', growth: 'Medium' },
+        { title: 'Statistician', package: '₹7-20 LPA', growth: 'High' },
+        { title: 'Physics Teacher', package: '₹5-12 LPA', growth: 'Medium' },
+        { title: 'Research Scientist', package: '₹8-25 LPA', growth: 'Medium' }
+      ],
+      courses: ['Mathematics', 'Physics', 'Statistics', 'Applied Mathematics'],
+      skillsNeeded: ['Mathematical Thinking', 'Problem Solving', 'Analysis', 'Teaching']
+    },
+    'Liberal Arts & Humanities': {
+      description: 'Your broad interests and critical thinking skills make you perfect for liberal arts and humanities.',
+      careers: [
+        { title: 'Writer', package: '₹4-15 LPA', growth: 'Medium' },
+        { title: 'Historian', package: '₹5-12 LPA', growth: 'Medium' },
+        { title: 'Cultural Analyst', package: '₹6-18 LPA', growth: 'Medium' },
+        { title: 'Policy Advisor', package: '₹8-25 LPA', growth: 'Medium' }
+      ],
+      courses: ['Literature', 'History', 'Philosophy', 'Cultural Studies'],
+      skillsNeeded: ['Critical Thinking', 'Writing', 'Research', 'Cultural Awareness']
+    }
+  };
+
+  return careerDetails[recommendation] || {
+    description: 'Your unique combination of skills and interests opens up diverse career opportunities.',
     careers: [
-      { title: 'Software Engineer', package: '₹8-25 LPA', growth: 'High' },
-      { title: 'Data Scientist', package: '₹12-30 LPA', growth: 'Very High' },
-      { title: 'Cybersecurity Analyst', package: '₹10-20 LPA', growth: 'High' }
+      { title: 'General Manager', package: '₹8-20 LPA', growth: 'High' },
+      { title: 'Project Coordinator', package: '₹6-15 LPA', growth: 'Medium' },
+      { title: 'Business Analyst', package: '₹7-18 LPA', growth: 'High' },
+      { title: 'Consultant', package: '₹10-25 LPA', growth: 'High' }
     ],
-    courses: ['Computer Science', 'Information Technology', 'Electronics Engineering'],
-    skillsNeeded: ['Programming', 'Mathematics', 'Logical Thinking']
-  },
-  'Arts & Creative Fields': {
-    description: 'Your creative thinking and artistic interests align well with creative industries.',
-    careers: [
-      { title: 'Graphic Designer', package: '₹4-12 LPA', growth: 'Medium' },
-      { title: 'Content Creator', package: '₹6-15 LPA', growth: 'High' },
-      { title: 'UI/UX Designer', package: '₹8-18 LPA', growth: 'Very High' }
-    ],
-    courses: ['Fine Arts', 'Graphic Design', 'Mass Communication'],
-    skillsNeeded: ['Creativity', 'Design Tools', 'Communication']
-  },
-  'Social Services & Psychology': {
-    description: 'Your empathy and people skills make you ideal for roles helping others.',
-    careers: [
-      { title: 'Clinical Psychologist', package: '₹6-15 LPA', growth: 'Medium' },
-      { title: 'Social Worker', package: '₹4-10 LPA', growth: 'Medium' },
-      { title: 'HR Manager', package: '₹8-20 LPA', growth: 'High' }
-    ],
-    courses: ['Psychology', 'Social Work', 'Human Resources'],
-    skillsNeeded: ['Empathy', 'Communication', 'Problem Solving']
-  }
+    courses: ['Business Administration', 'Management', 'Analytics', 'Communication'],
+    skillsNeeded: ['Leadership', 'Communication', 'Problem Solving', 'Adaptability']
+  };
 };
 
 type Institute = {
@@ -216,7 +354,7 @@ export default function QuizResults() {
         {/* Career Recommendations */}
         <div className="space-y-8">
           {score.recommendations.map((recommendation, index) => {
-            const details = careerDetails[recommendation as keyof typeof careerDetails];
+            const details = getCareerDetails(recommendation);
             if (!details) return null;
 
             return (

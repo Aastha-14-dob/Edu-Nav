@@ -15,6 +15,174 @@ import {
 } from 'lucide-react';
 
 const streamData = {
+  'science(maths)': {
+    title: 'Science (Maths) Stream Courses',
+    description: 'Explore mathematical and technical fields that drive innovation and technology',
+    courses: [
+      {
+        id: 1,
+        title: 'Computer Science & Engineering',
+        slug: 'computer-science---engineering',
+        duration: '4 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹8-25 LPA',
+        jobRoles: ['Software Engineer', 'Data Scientist', 'DevOps Engineer'],
+        description: 'Learn programming, algorithms, and software development to build the digital future.',
+        rating: 4.8,
+        difficulty: 'High',
+        demand: 'Very High'
+      },
+      {
+        id: 2,
+        title: 'Mathematics',
+        slug: 'mathematics',
+        duration: '3 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹6-18 LPA',
+        jobRoles: ['Mathematician', 'Statistician', 'Data Analyst', 'Actuary'],
+        description: 'Study pure and applied mathematics, statistics, and mathematical modeling.',
+        rating: 4.4,
+        difficulty: 'High',
+        demand: 'High'
+      },
+      {
+        id: 3,
+        title: 'Physics',
+        slug: 'physics',
+        duration: '3 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹5-15 LPA',
+        jobRoles: ['Physicist', 'Research Scientist', 'Physics Teacher', 'Engineer'],
+        description: 'Explore the fundamental laws of nature and physical phenomena.',
+        rating: 4.3,
+        difficulty: 'High',
+        demand: 'Medium'
+      },
+      {
+        id: 4,
+        title: 'Statistics',
+        slug: 'statistics',
+        duration: '3 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹6-20 LPA',
+        jobRoles: ['Statistician', 'Data Scientist', 'Research Analyst', 'Risk Analyst'],
+        description: 'Learn statistical methods, data analysis, and probability theory.',
+        rating: 4.5,
+        difficulty: 'High',
+        demand: 'High'
+      },
+      {
+        id: 5,
+        title: 'Electronics & Communication',
+        slug: 'electronics---communication',
+        duration: '4 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹6-18 LPA',
+        jobRoles: ['Electronics Engineer', 'Network Engineer', 'Hardware Designer'],
+        description: 'Master electronic systems, communication technologies, and circuit design.',
+        rating: 4.5,
+        difficulty: 'High',
+        demand: 'High'
+      },
+      {
+        id: 6,
+        title: 'Mechanical Engineering',
+        slug: 'mechanical-engineering',
+        duration: '4 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹6-20 LPA',
+        jobRoles: ['Mechanical Engineer', 'Design Engineer', 'Manufacturing Engineer'],
+        description: 'Design and manufacture mechanical systems and machinery.',
+        rating: 4.4,
+        difficulty: 'High',
+        demand: 'High'
+      }
+    ]
+  },
+  'science(biology)': {
+    title: 'Science (Biology) Stream Courses',
+    description: 'Explore life sciences and biological research fields',
+    courses: [
+      {
+        id: 1,
+        title: 'MBBS (Bachelor of Medicine & Bachelor of Surgery)',
+        slug: 'mbbs',
+        duration: '5.5 years',
+        type: 'Professional',
+        expectedPackage: '₹8-50 LPA',
+        jobRoles: ['Doctor', 'Surgeon', 'Medical Specialist', 'Medical Researcher'],
+        description: 'Comprehensive medical education covering human anatomy, physiology, and clinical practice.',
+        rating: 4.9,
+        difficulty: 'Very High',
+        demand: 'Very High'
+      },
+      {
+        id: 2,
+        title: 'BDS (Bachelor of Dental Surgery)',
+        slug: 'bds',
+        duration: '5 years',
+        type: 'Professional',
+        expectedPackage: '₹6-25 LPA',
+        jobRoles: ['Dentist', 'Oral Surgeon', 'Orthodontist', 'Periodontist'],
+        description: 'Specialized dental education focusing on oral health and dental care.',
+        rating: 4.7,
+        difficulty: 'Very High',
+        demand: 'High'
+      },
+      {
+        id: 3,
+        title: 'B.Sc Biology',
+        slug: 'bsc-biology',
+        duration: '3 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹4-12 LPA',
+        jobRoles: ['Biologist', 'Research Assistant', 'Lab Technician', 'Environmental Scientist'],
+        description: 'Study of living organisms, their structure, function, and interactions.',
+        rating: 4.3,
+        difficulty: 'Medium',
+        demand: 'Medium'
+      },
+      {
+        id: 4,
+        title: 'B.Sc Biotechnology',
+        slug: 'bsc-biotechnology',
+        duration: '3 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹5-18 LPA',
+        jobRoles: ['Biotechnologist', 'Research Scientist', 'Quality Analyst', 'Product Manager'],
+        description: 'Application of biological processes for technological advancement.',
+        rating: 4.5,
+        difficulty: 'High',
+        demand: 'High'
+      },
+      {
+        id: 5,
+        title: 'B.Pharm (Bachelor of Pharmacy)',
+        slug: 'b-pharm',
+        duration: '4 years',
+        type: 'Professional',
+        expectedPackage: '₹4-15 LPA',
+        jobRoles: ['Pharmacist', 'Drug Inspector', 'Medical Representative', 'Clinical Researcher'],
+        description: 'Study of drugs, medicines, and pharmaceutical sciences.',
+        rating: 4.4,
+        difficulty: 'High',
+        demand: 'High'
+      },
+      {
+        id: 6,
+        title: 'B.Sc Microbiology',
+        slug: 'bsc-microbiology',
+        duration: '3 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹4-10 LPA',
+        jobRoles: ['Microbiologist', 'Clinical Lab Scientist', 'Food Safety Officer', 'Research Analyst'],
+        description: 'Study of microorganisms and their impact on health and environment.',
+        rating: 4.2,
+        difficulty: 'Medium',
+        demand: 'Medium'
+      }
+    ]
+  },
   science: {
     title: 'Science Stream Courses',
     description: 'Explore scientific and technical fields that shape our future',
@@ -57,6 +225,45 @@ const streamData = {
         rating: 4.3,
         difficulty: 'Medium',
         demand: 'Medium'
+      },
+      {
+        id: 4,
+        title: 'Mechanical Engineering',
+        slug: 'mechanical-engineering',
+        duration: '4 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹6-20 LPA',
+        jobRoles: ['Mechanical Engineer', 'Design Engineer', 'Manufacturing Engineer'],
+        description: 'Design and manufacture mechanical systems and machinery.',
+        rating: 4.4,
+        difficulty: 'High',
+        demand: 'High'
+      },
+      {
+        id: 5,
+        title: 'Civil Engineering',
+        slug: 'civil-engineering',
+        duration: '4 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹5-16 LPA',
+        jobRoles: ['Civil Engineer', 'Structural Engineer', 'Construction Manager'],
+        description: 'Plan, design, and construct infrastructure projects.',
+        rating: 4.3,
+        difficulty: 'High',
+        demand: 'Medium'
+      },
+      {
+        id: 6,
+        title: 'Aerospace Engineering',
+        slug: 'aerospace-engineering',
+        duration: '4 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹8-30 LPA',
+        jobRoles: ['Aerospace Engineer', 'Aircraft Designer', 'Flight Test Engineer'],
+        description: 'Design and develop aircraft and spacecraft systems.',
+        rating: 4.6,
+        difficulty: 'Very High',
+        demand: 'High'
       }
     ]
   },
@@ -102,6 +309,45 @@ const streamData = {
         rating: 4.7,
         difficulty: 'Very High',
         demand: 'Very High'
+      },
+      {
+        id: 4,
+        title: 'Company Secretary (CS)',
+        slug: 'company-secretary-(cs)',
+        duration: '3-4 years',
+        type: 'Professional',
+        expectedPackage: '₹6-20 LPA',
+        jobRoles: ['Company Secretary', 'Compliance Officer', 'Corporate Governance Specialist'],
+        description: 'Professional course in corporate law, governance, and compliance.',
+        rating: 4.5,
+        difficulty: 'Very High',
+        demand: 'High'
+      },
+      {
+        id: 5,
+        title: 'Bachelor of Economics',
+        slug: 'bachelor-of-economics',
+        duration: '3 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹5-18 LPA',
+        jobRoles: ['Economist', 'Policy Analyst', 'Research Associate'],
+        description: 'Study economic theory, policy, and quantitative analysis.',
+        rating: 4.3,
+        difficulty: 'Medium',
+        demand: 'Medium'
+      },
+      {
+        id: 6,
+        title: 'Cost and Management Accountant (CMA)',
+        slug: 'cost-and-management-accountant-(cma)',
+        duration: '3-4 years',
+        type: 'Professional',
+        expectedPackage: '₹7-22 LPA',
+        jobRoles: ['Cost Accountant', 'Management Accountant', 'Financial Controller'],
+        description: 'Professional course in cost accounting and management accounting.',
+        rating: 4.6,
+        difficulty: 'Very High',
+        demand: 'High'
       }
     ]
   },
@@ -147,6 +393,129 @@ const streamData = {
         rating: 4.4,
         difficulty: 'Medium',
         demand: 'Medium'
+      },
+      {
+        id: 4,
+        title: 'Bachelor of Fine Arts (BFA)',
+        slug: 'bachelor-of-fine-arts-(bfa)',
+        duration: '4 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹3-12 LPA',
+        jobRoles: ['Artist', 'Graphic Designer', 'Art Teacher'],
+        description: 'Develop artistic skills and creative expression in various media.',
+        rating: 4.2,
+        difficulty: 'Medium',
+        demand: 'Medium'
+      },
+      {
+        id: 5,
+        title: 'Bachelor of Social Work (BSW)',
+        slug: 'bachelor-of-social-work-(bsw)',
+        duration: '3 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹3-8 LPA',
+        jobRoles: ['Social Worker', 'Community Organizer', 'Counselor'],
+        description: 'Learn to help individuals and communities overcome social challenges.',
+        rating: 4.0,
+        difficulty: 'Medium',
+        demand: 'Medium'
+      },
+      {
+        id: 6,
+        title: 'Bachelor of Education (B.Ed)',
+        slug: 'bachelor-of-education-(b-ed)',
+        duration: '2 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹3-10 LPA',
+        jobRoles: ['Teacher', 'Educational Counselor', 'Curriculum Developer'],
+        description: 'Prepare for a career in teaching and educational administration.',
+        rating: 4.3,
+        difficulty: 'Medium',
+        demand: 'High'
+      }
+    ]
+  },
+  biology: {
+    title: 'Biology Stream Courses',
+    description: 'Explore life sciences and biological research fields',
+    courses: [
+      {
+        id: 1,
+        title: 'MBBS (Bachelor of Medicine & Bachelor of Surgery)',
+        slug: 'mbbs',
+        duration: '5.5 years',
+        type: 'Professional',
+        expectedPackage: '₹8-50 LPA',
+        jobRoles: ['Doctor', 'Surgeon', 'Medical Specialist', 'Medical Researcher'],
+        description: 'Comprehensive medical education covering human anatomy, physiology, and clinical practice.',
+        rating: 4.9,
+        difficulty: 'Very High',
+        demand: 'Very High'
+      },
+      {
+        id: 2,
+        title: 'BDS (Bachelor of Dental Surgery)',
+        slug: 'bds',
+        duration: '5 years',
+        type: 'Professional',
+        expectedPackage: '₹6-25 LPA',
+        jobRoles: ['Dentist', 'Oral Surgeon', 'Orthodontist', 'Periodontist'],
+        description: 'Specialized dental education focusing on oral health and dental care.',
+        rating: 4.7,
+        difficulty: 'Very High',
+        demand: 'High'
+      },
+      {
+        id: 3,
+        title: 'B.Sc Biology',
+        slug: 'bsc-biology',
+        duration: '3 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹4-12 LPA',
+        jobRoles: ['Biologist', 'Research Assistant', 'Lab Technician', 'Environmental Scientist'],
+        description: 'Study of living organisms, their structure, function, and interactions.',
+        rating: 4.3,
+        difficulty: 'Medium',
+        demand: 'Medium'
+      },
+      {
+        id: 4,
+        title: 'B.Sc Biotechnology',
+        slug: 'bsc-biotechnology',
+        duration: '3 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹5-18 LPA',
+        jobRoles: ['Biotechnologist', 'Research Scientist', 'Quality Analyst', 'Product Manager'],
+        description: 'Application of biological processes for technological advancement.',
+        rating: 4.5,
+        difficulty: 'High',
+        demand: 'High'
+      },
+      {
+        id: 5,
+        title: 'B.Pharm (Bachelor of Pharmacy)',
+        slug: 'b-pharm',
+        duration: '4 years',
+        type: 'Professional',
+        expectedPackage: '₹4-15 LPA',
+        jobRoles: ['Pharmacist', 'Drug Inspector', 'Medical Representative', 'Clinical Researcher'],
+        description: 'Study of drugs, medicines, and pharmaceutical sciences.',
+        rating: 4.4,
+        difficulty: 'High',
+        demand: 'High'
+      },
+      {
+        id: 6,
+        title: 'B.Sc Microbiology',
+        slug: 'bsc-microbiology',
+        duration: '3 years',
+        type: 'Bachelor\'s',
+        expectedPackage: '₹4-10 LPA',
+        jobRoles: ['Microbiologist', 'Clinical Lab Scientist', 'Food Safety Officer', 'Research Analyst'],
+        description: 'Study of microorganisms and their impact on health and environment.',
+        rating: 4.2,
+        difficulty: 'Medium',
+        demand: 'Medium'
       }
     ]
   },
@@ -190,6 +559,45 @@ const streamData = {
         jobRoles: ['Graphic Designer', 'UI Designer', 'Brand Designer'],
         description: 'Create visual content for print and digital media.',
         rating: 4.2,
+        difficulty: 'Medium',
+        demand: 'High'
+      },
+      {
+        id: 4,
+        title: 'Data Analytics',
+        slug: 'data-analytics',
+        duration: '6 months - 1 year',
+        type: 'Certificate',
+        expectedPackage: '₹5-18 LPA',
+        jobRoles: ['Data Analyst', 'Business Analyst', 'Data Scientist'],
+        description: 'Analyze data to drive business decisions and insights.',
+        rating: 4.7,
+        difficulty: 'Medium',
+        demand: 'Very High'
+      },
+      {
+        id: 5,
+        title: 'Cybersecurity',
+        slug: 'cybersecurity',
+        duration: '1-2 years',
+        type: 'Certificate/Diploma',
+        expectedPackage: '₹6-20 LPA',
+        jobRoles: ['Cybersecurity Analyst', 'Security Engineer', 'Penetration Tester'],
+        description: 'Protect digital systems and data from cyber threats.',
+        rating: 4.8,
+        difficulty: 'High',
+        demand: 'Very High'
+      },
+      {
+        id: 6,
+        title: 'UI/UX Design',
+        slug: 'ui-ux-design',
+        duration: '6 months - 1 year',
+        type: 'Certificate',
+        expectedPackage: '₹4-15 LPA',
+        jobRoles: ['UI Designer', 'UX Designer', 'Product Designer'],
+        description: 'Design user interfaces and experiences for digital products.',
+        rating: 4.6,
         difficulty: 'Medium',
         demand: 'High'
       }

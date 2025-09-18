@@ -70,43 +70,170 @@ export default function Quiz() {
   };
 
   const calculateScore = (allAnswers: Record<string, number>) => {
-    const categories = {
-      Aptitude: 0,
-      Interest: 0,
-      Personality: 0
+    const categoryScores = {
+      Aptitude: { count: 0, total: 0, avg: 0 },
+      Interest: { count: 0, total: 0, avg: 0 },
+      Personality: { count: 0, total: 0, avg: 0 }
     };
 
-    Object.keys(allAnswers).forEach(questionId => {
+    // Calculate weighted scores based on answer choices
+    Object.entries(allAnswers).forEach(([questionId, answer]) => {
       const question = questions.find(q => q.id === questionId);
       if (question) {
-        categories[question.category]++;
+        categoryScores[question.category].count++;
+        categoryScores[question.category].total += answer;
       }
     });
 
-    const total = Object.values(categories).reduce((sum, count) => sum + count, 0);
+    // Calculate averages
+    Object.keys(categoryScores).forEach(category => {
+      if (categoryScores[category].count > 0) {
+        categoryScores[category].avg = categoryScores[category].total / categoryScores[category].count;
+      }
+    });
+
+    const total = Object.values(categoryScores).reduce((sum, cat) => sum + cat.total, 0);
+    const maxPossible = questions.length * 5; // Assuming 5 options per question
     
     return {
-      categories,
+      categories: {
+        Aptitude: categoryScores.Aptitude.count,
+        Interest: categoryScores.Interest.count,
+        Personality: categoryScores.Personality.count
+      },
+      categoryScores,
       total,
-      percentage: Math.round((total / questions.length) * 100),
-      recommendations: getRecommendations(categories)
+      percentage: Math.round((total / maxPossible) * 100),
+      recommendations: getRecommendations(categoryScores, allAnswers)
     };
   };
 
-  const getRecommendations = (categories: Record<string, number>) => {
+  const getRecommendations = (categoryScores: any, answers: Record<string, number>) => {
     const recommendations = [];
     
-    if (categories.Aptitude >= 2) {
-      recommendations.push('Engineering & Technology');
+    // Analyze specific answer patterns for more accurate recommendations
+    const answerAnalysis = {
+      technical: 0,    // Building/fixing, math/logic, programming
+      creative: 0,     // Creating/design, artistic expression, communication
+      analytical: 0,   // Logic problems, research, data analysis
+      social: 0,       // Helping/caring, people skills, leadership
+      practical: 0,    // Hands-on work, tools, real-world application
+      academic: 0      // Research, study, theoretical work
+    };
+
+    // Map answers to career inclinations
+    Object.entries(answers).forEach(([questionId, answer]) => {
+      const question = questions.find(q => q.id === questionId);
+      if (question) {
+        switch (questionId) {
+          case '1': // What energizes you most?
+            if (answer === 0) answerAnalysis.technical += 2; // Building/fixing
+            if (answer === 1) answerAnalysis.analytical += 2; // Logic problems
+            if (answer === 2) answerAnalysis.creative += 2; // Creating/design
+            if (answer === 3) answerAnalysis.social += 2; // Helping/caring
+            if (answer === 4) answerAnalysis.social += 1; // Selling/leading
+            if (answer === 5) answerAnalysis.practical += 1; // Organizing
+            break;
+          case '2': // Which skills feel natural?
+            if (answer === 0) answerAnalysis.analytical += 2; // Math/logic
+            if (answer === 1) answerAnalysis.creative += 2; // Writing/speaking
+            if (answer === 2) answerAnalysis.technical += 1; // Spatial/visual
+            if (answer === 3) answerAnalysis.technical += 2; // Mechanical/tools
+            if (answer === 4) answerAnalysis.creative += 2; // Artistic
+            if (answer === 5) answerAnalysis.social += 2; // Service
+            break;
+          case '3': // Work trade-offs
+            if (answer === 0) answerAnalysis.analytical += 1; // Autonomy
+            if (answer === 1) answerAnalysis.practical += 2; // Stability
+            if (answer === 2) answerAnalysis.social += 2; // People impact
+            if (answer === 3) answerAnalysis.practical += 2; // Physical activity
+            break;
+          case '4': // Constraints
+            if (answer === 0) answerAnalysis.practical += 2; // Limited time
+            if (answer === 1) answerAnalysis.practical += 1; // Budget
+            if (answer === 2) answerAnalysis.practical += 1; // Location
+            break;
+          case '5': // Deal-breakers
+            if (answer === 2) answerAnalysis.practical += 2; // Prolonged study
+            if (answer === 3) answerAnalysis.social -= 1; // Customer-facing
+            if (answer === 4) answerAnalysis.practical += 1; // Low pay
+            break;
+          case '6': // Risk tolerance
+            if (answer === 0 || answer === 1) answerAnalysis.practical += 2; // Low risk
+            if (answer === 3 || answer === 4) answerAnalysis.analytical += 2; // High risk
+            break;
+          case '7': // Career priorities
+            if (answer === 0) answerAnalysis.academic += 2; // Skills/credentials
+            if (answer === 1) answerAnalysis.social += 1; // Role/position
+            if (answer === 2) answerAnalysis.practical += 1; // Salary goals
+            if (answer === 3) answerAnalysis.practical += 1; // Work-life balance
+            break;
+          case '8': // Experiment preferences
+            if (answer === 0) answerAnalysis.practical += 2; // Job shadowing
+            if (answer === 1) answerAnalysis.social += 2; // Informational interviews
+            if (answer === 2) answerAnalysis.academic += 2; // Online course
+            if (answer === 3) answerAnalysis.technical += 2; // Hands-on project
+            if (answer === 4) answerAnalysis.social += 1; // Volunteer/trial
+            break;
+        }
+      }
+    });
+
+    // Generate recommendations based on highest scores
+    const sortedAnalysis = Object.entries(answerAnalysis)
+      .sort(([,a], [,b]) => (b as number) - (a as number));
+
+    if (sortedAnalysis[0][1] > 3) {
+      const topInclination = sortedAnalysis[0][0];
+      switch (topInclination) {
+        case 'technical':
+          recommendations.push('Engineering & Technology');
+          if (sortedAnalysis[1][1] > 2 && sortedAnalysis[1][0] === 'analytical') {
+            recommendations.push('Data Science & Analytics');
+          }
+          break;
+        case 'creative':
+          recommendations.push('Arts & Creative Fields');
+          if (sortedAnalysis[1][1] > 2 && sortedAnalysis[1][0] === 'social') {
+            recommendations.push('Media & Communication');
+          }
+          break;
+        case 'analytical':
+          recommendations.push('Research & Academia');
+          if (sortedAnalysis[1][1] > 2 && sortedAnalysis[1][0] === 'technical') {
+            recommendations.push('Computer Science');
+          }
+          break;
+        case 'social':
+          recommendations.push('Social Services & Psychology');
+          if (sortedAnalysis[1][1] > 2 && sortedAnalysis[1][0] === 'creative') {
+            recommendations.push('Education & Training');
+          }
+          break;
+        case 'practical':
+          recommendations.push('Vocational & Skill-Based');
+          if (sortedAnalysis[1][1] > 2 && sortedAnalysis[1][0] === 'technical') {
+            recommendations.push('Applied Sciences');
+          }
+          break;
+        case 'academic':
+          recommendations.push('Higher Education & Research');
+          break;
+      }
     }
-    if (categories.Interest >= 2) {
-      recommendations.push('Arts & Creative Fields');
+
+    // Add secondary recommendations based on category scores
+    if (categoryScores.Aptitude.avg > 3 && !recommendations.includes('Engineering & Technology')) {
+      recommendations.push('Science & Mathematics');
     }
-    if (categories.Personality >= 2) {
-      recommendations.push('Social Services & Psychology');
+    if (categoryScores.Interest.avg > 3 && !recommendations.some(r => r.includes('Arts'))) {
+      recommendations.push('Liberal Arts & Humanities');
+    }
+    if (categoryScores.Personality.avg > 3 && !recommendations.some(r => r.includes('Social'))) {
+      recommendations.push('Healthcare & Wellness');
     }
     
-    return recommendations.length > 0 ? recommendations : ['General Academic Track'];
+    return recommendations.length > 0 ? recommendations.slice(0, 3) : ['General Academic Track'];
   };
 
   const currentQ = questions[currentQuestion];

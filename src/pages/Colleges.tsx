@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,72 +17,83 @@ import {
   ExternalLink
 } from 'lucide-react';
 
-const colleges = [
-  {
-    id: 1,
-    name: 'Indian Institute of Technology Delhi',
-    location: 'New Delhi',
-    rating: 4.8,
-    fees: '₹2.5 Lakhs/year',
-    type: 'Government',
-    established: 1961,
-    courses: ['Computer Science', 'Mechanical Engineering', 'Electrical Engineering'],
-    cutoff: '99.5 JEE Main Percentile',
-    image: '/placeholder.svg'
-  },
-  {
-    id: 2,
-    name: 'Manipal Institute of Technology',
-    location: 'Manipal, Karnataka',
-    rating: 4.6,
-    fees: '₹17 Lakhs/year',
-    type: 'Private',
-    established: 1957,
-    courses: ['Information Technology', 'Electronics', 'Biotechnology'],
-    cutoff: '95+ JEE Main Percentile',
-    image: '/placeholder.svg'
-  },
-  {
-    id: 3,
-    name: 'BITS Pilani',
-    location: 'Pilani, Rajasthan',
-    rating: 4.7,
-    fees: '₹19 Lakhs/year',
-    type: 'Private',
-    established: 1964,
-    courses: ['Computer Science', 'Chemical Engineering', 'Physics'],
-    cutoff: 'BITSAT 350+',
-    image: '/placeholder.svg'
-  },
-  {
-    id: 4,
-    name: 'Delhi University',
-    location: 'New Delhi',
-    rating: 4.5,
-    fees: '₹50,000/year',
-    type: 'Government',
-    established: 1922,
-    courses: ['Economics', 'Political Science', 'English Literature'],
-    cutoff: '95%+ in Class 12',
-    image: '/placeholder.svg'
-  },
-  {
-    id: 5,
-    name: 'Indian Institute of Science',
-    location: 'Bangalore, Karnataka',
-    rating: 4.9,
-    fees: '₹2 Lakhs/year',
-    type: 'Government',
-    established: 1909,
-    courses: ['Research Programs', 'Aerospace Engineering', 'Materials Engineering'],
-    cutoff: 'JEE Advanced Rank < 1000',
-    image: '/placeholder.svg'
-  }
-];
+interface College {
+  name: string;
+  location: string;
+  established: number;
+  rating: number;
+  type: string;
+  fees: string;
+  courses: string[];
+  cutoff: string;
+}
 
 export default function Colleges() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState('all');
+  const [colleges, setColleges] = useState<College[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const apiBase = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:5000';
+
+  // Auto-fetch colleges on component mount
+  useEffect(() => {
+    fetchColleges();
+  }, []);
+
+  // Add refresh functionality
+  const handleRefresh = () => {
+    fetchColleges();
+  };
+
+  const fetchColleges = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      // Get quiz data if available
+      const quizScore = localStorage.getItem('quizScore');
+      const quizAnswers = localStorage.getItem('quizAnswers');
+      
+      let payload = {
+        profile: { name: 'Student', class: '12', location: '' },
+        quizResult: { strengths: ['General'], interests: ['Education'], rawAnswers: {} },
+        preferences: { goal: 'Higher Studies' }
+      };
+
+      if (quizScore && quizAnswers) {
+        const parsedScore = JSON.parse(quizScore);
+        const parsedAnswers = JSON.parse(quizAnswers);
+        
+        // Derive strengths and interests from quiz
+        const categoriesSorted = Object.entries(parsedScore.categories).sort((a, b) => (b[1] as number) - (a[1] as number)).map(([name]) => name);
+        const strengths = categoriesSorted.slice(0, 3);
+        const interests = parsedScore.recommendations.slice(0, 3);
+        
+        payload = {
+          profile: { name: 'Student', class: '12', location: '' },
+          quizResult: { strengths, interests, rawAnswers: parsedAnswers },
+          preferences: { goal: 'Higher Studies' }
+        };
+      }
+
+      const res = await fetch(`${apiBase}/api/career-suggestions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) throw new Error('Failed to fetch colleges');
+      const data = await res.json();
+      setColleges(Array.isArray(data.institutes) ? data.institutes : []);
+    } catch (err: any) {
+      setError(err?.message || 'Something went wrong');
+      setColleges([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredColleges = colleges.filter(college => {
     const matchesSearch = college.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -141,6 +152,14 @@ export default function Colleges() {
                 >
                   Private
                 </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleRefresh}
+                  size="sm"
+                  disabled={loading}
+                >
+                  {loading ? 'Loading...' : 'Refresh'}
+                </Button>
               </div>
             </div>
           </CardContent>
@@ -148,8 +167,35 @@ export default function Colleges() {
 
         {/* Colleges Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {filteredColleges.map((college) => (
-            <Card key={college.id} className="shadow-card hover:shadow-hover transition-all duration-300">
+          {loading && (
+            <div className="col-span-full text-center text-muted-foreground py-8">
+              <div className="flex items-center justify-center space-x-2">
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                <span>Loading college recommendations...</span>
+              </div>
+            </div>
+          )}
+          {error && (
+            <div className="col-span-full text-center text-destructive py-8">
+              <div className="bg-destructive/10 p-4 rounded-lg">
+                <p className="font-medium">Failed to load colleges</p>
+                <p className="text-sm mt-2">{error}</p>
+                <Button onClick={handleRefresh} className="mt-4" variant="outline">
+                  Try Again
+                </Button>
+              </div>
+            </div>
+          )}
+          {!loading && !error && filteredColleges.length === 0 && (
+            <div className="col-span-full text-center text-muted-foreground py-8">
+              <p>No colleges found matching your criteria.</p>
+              <Button onClick={handleRefresh} className="mt-4" variant="outline">
+                Refresh
+              </Button>
+            </div>
+          )}
+          {!loading && !error && filteredColleges.map((college, idx) => (
+            <Card key={`${college.name}-${idx}`} className="shadow-card hover:shadow-hover transition-all duration-300">
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
@@ -201,12 +247,12 @@ export default function Colleges() {
 
                   <div className="flex space-x-3 pt-4">
                     <Button asChild className="flex-1">
-                      <Link to={`/colleges/${college.id}`}>
+                      <Link to={`/colleges/${idx}`}>
                         View Details
                       </Link>
                     </Button>
                     <Button variant="outline" asChild>
-                      <Link to={`/colleges/${college.id}/courses`}>
+                      <Link to={`/colleges/${idx}/courses`}>
                         <GraduationCap className="mr-2 h-4 w-4" />
                         Courses
                       </Link>
