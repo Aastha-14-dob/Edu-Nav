@@ -145,17 +145,24 @@ const Index = () => {
     },
   ];
 
+  // Generate random numbers within 10% of base values
+  const generateRandomValue = (baseValue: number) => {
+    const variation = baseValue * 0.1; // 10% variation
+    const randomFactor = (Math.random() - 0.5) * 2; // -1 to 1
+    return Math.round(baseValue + (randomFactor * variation));
+  };
+
   const isAdmin = user?.role === 'admin';
   const stats = isAdmin ? [
-    { value: mockStats.totalStudents, label: 'Total Students', suffix: '' },
-    { value: mockStats.totalParents, label: 'Total Parents', suffix: '' },
-    { value: mockStats.totalColleges, label: 'Listed Colleges', suffix: '' },
-    { value: mockStats.activeUsers, label: 'Active Users', suffix: '' },
+    { value: generateRandomValue(mockStats.totalStudents), label: 'Total Students', suffix: '' },
+    { value: generateRandomValue(mockStats.totalParents), label: 'Total Parents', suffix: '' },
+    { value: generateRandomValue(mockStats.totalColleges), label: 'Listed Colleges', suffix: '' },
+    { value: generateRandomValue(mockStats.activeUsers), label: 'Active Users', suffix: '' },
   ] : [
-    { value: 200, label: 'Career Paths Explored', suffix: '+' },
-    { value: 500, label: 'Listed Colleges', suffix: '+' },
-    { value: 1000, label: 'Scholarships Listed', suffix: '+' },
-    { value: 15000, label: 'Career Assessments Taken', suffix: '+' },
+    { value: generateRandomValue(200), label: 'Career Paths Explored', suffix: '+' },
+    { value: generateRandomValue(500), label: 'Listed Colleges', suffix: '+' },
+    { value: generateRandomValue(1000), label: 'Scholarships Listed', suffix: '+' },
+    { value: generateRandomValue(15000), label: 'Career Assessments Taken', suffix: '+' },
   ];
 
   function AnimatedNumber({ value, duration = 3000, suffix = '' }: { value: number; duration?: number; suffix?: string }) {

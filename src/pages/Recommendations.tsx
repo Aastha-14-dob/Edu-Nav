@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,7 +18,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 
-const careerRecommendations = [
+const careerRecommendationsStatic = [
   {
     id: 1,
     title: 'Software Engineer',
@@ -77,6 +77,41 @@ const skillsAssessment = [
 
 export default function Recommendations() {
   const [selectedCareer, setSelectedCareer] = useState<number | null>(null);
+  const [careers, setCareers] = useState<typeof careerRecommendationsStatic>(careerRecommendationsStatic);
+  const [streams, setStreams] = useState<{ stream: string; key: string; description: string; topCourses: string[]; match: number }[]>([]);
+
+  const apiBase = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:5000';
+
+  useEffect(() => {
+    // Load quiz data
+    const savedScore = localStorage.getItem('quizScore');
+    const savedAnswers = localStorage.getItem('quizAnswers');
+    if (!savedScore || !savedAnswers) return;
+
+    const parsedScore = JSON.parse(savedScore);
+    const parsedAnswers = JSON.parse(savedAnswers);
+
+    const categoriesSorted = Object.entries(parsedScore.categories).sort((a: any, b: any) => b[1] - a[1]).map(([name]: any) => name);
+    const strengths = categoriesSorted.slice(0, 3);
+    const interests = parsedScore.recommendations.slice(0, 3);
+
+    // Fetch stream recommendations from backend
+    (async () => {
+      try {
+        const res = await fetch(`${apiBase}/api/stream-recommendations`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ quizResult: { strengths, interests, rawAnswers: parsedAnswers } })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.streams)) setStreams(data.streams);
+        }
+      } catch (_) {
+        // Silent fail; keep static
+      }
+    })();
+  }, []);
 
   const getScoreColor = (score: number) => {
     if (score >= 90) return 'text-success';
@@ -169,7 +204,7 @@ export default function Recommendations() {
           {/* Career Recommendations */}
           <div className="lg:col-span-2">
             <div className="space-y-6">
-              {careerRecommendations.map((career, index) => (
+              {careers.map((career, index) => (
                 <Card 
                   key={career.id} 
                   className={`shadow-card hover:shadow-hover transition-all duration-300 cursor-pointer ${
@@ -305,6 +340,45 @@ export default function Recommendations() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Stream Recommendations */}
+            {streams.length > 0 && (
+              <Card className="mt-8 shadow-card">
+                <CardHeader>
+                  <CardTitle>Recommended Streams Based on Your Results</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {streams.map((s, idx) => (
+                      <Card key={idx} className="shadow-card">
+                        <CardHeader>
+                          <div className="flex items-center justify-between">
+                            <CardTitle className="text-lg">{s.stream}</CardTitle>
+                            <Badge variant="outline">{s.match}% Match</Badge>
+                          </div>
+                          <p className="text-sm text-muted-foreground">{s.description}</p>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {s.topCourses.map((c, i) => (
+                              <Badge key={i} variant="secondary" className="text-xs">{c}</Badge>
+                            ))}
+                          </div>
+                          <div className="flex gap-3">
+                            <Button asChild size="sm" className="flex-1">
+                              <Link to={`/courses/${s.key}`}>Explore {s.stream}</Link>
+                            </Button>
+                            <Button asChild variant="outline" size="sm">
+                              <Link to="/colleges">Find Colleges</Link>
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
       </div>

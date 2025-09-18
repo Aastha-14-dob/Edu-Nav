@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -33,8 +33,14 @@ export default function Scholarships() {
   const [results, setResults] = useState<ScholarshipItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [usingFallback, setUsingFallback] = useState(false);
 
   const apiBase = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:5000';
+
+  // Auto-load scholarships on component mount with a default search
+  useEffect(() => {
+    handleSearch({ term: 'Engineering', category: 'all' });
+  }, []);
 
   const handleSearch = async (overrides?: { category?: string; term?: string }) => {
     const term = overrides?.term ?? searchTerm;
@@ -50,28 +56,130 @@ export default function Scholarships() {
         academicScore: Number(localStorage.getItem('quizScore') ? JSON.parse(localStorage.getItem('quizScore') as string).percentage : 85)
       };
 
-      const res = await fetch(`${apiBase}/api/scholarships`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      let scholarships: ScholarshipItem[] = [];
 
-      if (!res.ok) throw new Error('Failed to fetch scholarships');
-      const data = await res.json();
-      let scholarships: ScholarshipItem[] = Array.isArray(data.scholarships) ? data.scholarships : [];
+      try {
+        console.log('Searching for scholarships with payload:', payload);
+        const res = await fetch(`${apiBase}/api/scholarships`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
 
+        if (res.ok) {
+          const data = await res.json();
+          console.log('API response:', data);
+          scholarships = Array.isArray(data.scholarships) ? data.scholarships : [];
+          console.log('Parsed scholarships:', scholarships);
+          setUsingFallback(false);
+        } else {
+          console.error('API request failed with status:', res.status);
+          throw new Error('API request failed');
+        }
+      } catch (apiError) {
+        // Use fallback data if API fails - make it dynamic based on search term
+        console.warn('API failed, using fallback data:', apiError);
+        setUsingFallback(true);
+        const searchTermLower = term.toLowerCase();
+        
+        // Generate dynamic fallback data based on search term
+        const baseScholarships = [
+          {
+            name: `Merit Scholarship for ${term || 'Engineering'}`,
+            provider: 'Government of India',
+            amount: '₹50,000/year',
+            eligibility: `Class 12 with 80%+ marks in ${term || 'PCM'}`,
+            deadline: '31/03/2024',
+            applicants: '500+',
+            type: 'Merit-based',
+            status: 'Open'
+          },
+          {
+            name: 'Need-based Financial Aid',
+            provider: 'Educational Trust',
+            amount: '₹25,000/year',
+            eligibility: 'Family income below ₹5 LPA',
+            deadline: '15/04/2024',
+            applicants: '200+',
+            type: 'Need-based',
+            status: 'Open'
+          },
+          {
+            name: `Research Excellence Scholarship - ${term || 'STEM'}`,
+            provider: 'University Grants Commission',
+            amount: '₹75,000/year',
+            eligibility: `Research proposal in ${term || 'STEM fields'} and academic excellence`,
+            deadline: '30/04/2024',
+            applicants: '100+',
+            type: 'Research',
+            status: 'Open'
+          },
+          {
+            name: 'Women in STEM Scholarship',
+            provider: 'Ministry of Education',
+            amount: '₹40,000/year',
+            eligibility: 'Female students in STEM fields',
+            deadline: '20/05/2024',
+            applicants: '300+',
+            type: 'Merit-based',
+            status: 'Open'
+          },
+          {
+            name: 'Rural Development Scholarship',
+            provider: 'Rural Development Ministry',
+            amount: '₹30,000/year',
+            eligibility: 'Students from rural areas',
+            deadline: '10/06/2024',
+            applicants: '400+',
+            type: 'Need-based',
+            status: 'Open'
+          },
+          {
+            name: `Innovation Grant for ${term || 'Technology'}`,
+            provider: 'Startup India',
+            amount: '₹1,00,000/year',
+            eligibility: `Innovative project in ${term || 'technology'}`,
+            deadline: '25/06/2024',
+            applicants: '150+',
+            type: 'Research',
+            status: 'Open'
+          }
+        ];
+        
+        scholarships = baseScholarships;
+      }
+
+      // Apply filters but ensure we maintain at least 6 results
+      let filteredScholarships = scholarships;
+      
       if (category !== 'all') {
-        scholarships = scholarships.filter(s => s.type.toLowerCase().includes(category.toLowerCase()));
+        filteredScholarships = scholarships.filter(s => s.type.toLowerCase().includes(category.toLowerCase()));
+        // If filtering reduces results below 6, keep some from all categories
+        if (filteredScholarships.length < 6) {
+          const remaining = scholarships.filter(s => !s.type.toLowerCase().includes(category.toLowerCase()));
+          filteredScholarships = [...filteredScholarships, ...remaining.slice(0, 6 - filteredScholarships.length)];
+        }
       }
 
       if (term) {
         const q = term.toLowerCase();
-        scholarships = scholarships.filter(s => s.name.toLowerCase().includes(q) || s.provider.toLowerCase().includes(q));
+        const termFiltered = filteredScholarships.filter(s => s.name.toLowerCase().includes(q) || s.provider.toLowerCase().includes(q));
+        // If term filtering reduces results below 6, keep some unfiltered results
+        if (termFiltered.length < 6) {
+          const remaining = filteredScholarships.filter(s => !s.name.toLowerCase().includes(q) && !s.provider.toLowerCase().includes(q));
+          filteredScholarships = [...termFiltered, ...remaining.slice(0, 6 - termFiltered.length)];
+        } else {
+          filteredScholarships = termFiltered;
+        }
       }
+      
+      scholarships = filteredScholarships;
 
       setResults(scholarships);
+      setError(null); // Clear any previous errors
     } catch (err: any) {
-      setError(err?.message || 'Something went wrong');
+      console.error('Search error:', err);
+      setError('Unable to load scholarships. Please try again.');
       setResults([]);
     } finally {
       setLoading(false);
@@ -121,7 +229,7 @@ export default function Scholarships() {
                   placeholder="Search scholarships by course or provider..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(); }}
+                  onKeyDown={(e) => { if (e.key === 'Enter') handleSearch({ term: searchTerm, category: selectedCategory }); }}
                   className="pl-10"
                 />
               </div>
@@ -154,7 +262,7 @@ export default function Scholarships() {
                 >
                   Research
                 </Button>
-                <Button onClick={() => handleSearch()}>
+                <Button onClick={() => handleSearch({ term: searchTerm, category: selectedCategory })}>
                   Search
                 </Button>
               </div>
@@ -170,6 +278,14 @@ export default function Scholarships() {
               <div className="text-sm text-muted-foreground">Results</div>
             </CardContent>
           </Card>
+          {usingFallback && (
+            <Card className="shadow-card border-warning">
+              <CardContent className="p-4 text-center">
+                <div className="text-sm text-warning font-medium">Using Sample Data</div>
+                <div className="text-xs text-muted-foreground">API unavailable</div>
+              </CardContent>
+            </Card>
+          )}
           <Card className="shadow-card">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-success">—</div>

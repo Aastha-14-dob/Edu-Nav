@@ -125,6 +125,46 @@ const featuredCourses = [
 export default function Courses() {
   const [selectedStream, setSelectedStream] = useState<string | null>(null);
 
+  // Map display names to route slugs used by CourseStream's streamData keys
+  const getStreamSlug = (displayName: string): string => {
+    const name = displayName.toLowerCase();
+    if (name.includes('science') && name.includes('math')) return 'science(maths)';
+    if (name.includes('science') && name.includes('biology')) return 'science(biology)';
+    if (name.includes('commerce')) return 'commerce';
+    if (name.includes('arts')) return 'arts';
+    return name.replace(/\s+/g, '-');
+  };
+
+  // Special handling for featured courses where stream label may be generic
+  const getFeaturedStreamSlug = (streamLabel: string, title: string): string => {
+    const label = streamLabel.toLowerCase();
+    const t = title.toLowerCase();
+    if (t.includes('computer') && t.includes('engineering')) return 'science(maths)';
+    if (label.includes('commerce') || t.includes('chartered')) return 'commerce';
+    if (label.includes('arts') || label.includes('humanities') || t.includes('psychology')) return 'arts';
+    return getStreamSlug(streamLabel);
+  };
+
+  // Map known course titles to the slugs used in CourseStream/CourseDetails
+  const courseSlugMap: Record<string, string> = {
+    'computer science & engineering': 'computer-science---engineering',
+    'computer science engineering': 'computer-science---engineering',
+    'chartered accountancy': 'chartered-accountancy-(ca)',
+    psychology: 'psychology',
+    'mechanical engineering': 'mechanical-engineering',
+    physics: 'physics',
+    mathematics: 'mathematics',
+    statistics: 'statistics',
+    'electronics & communication': 'electronics---communication',
+    'mass communication & journalism': 'mass-communication---journalism',
+  };
+
+  const toCourseSlug = (title: string): string => {
+    const key = title.trim().toLowerCase();
+    if (courseSlugMap[key]) return courseSlugMap[key];
+    return key.replace(/\s+/g, '-');
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -178,7 +218,7 @@ export default function Courses() {
                   className="w-full mt-4"
                   asChild
                 >
-                  <Link to={`/courses/${stream.name.toLowerCase()}`}>
+                  <Link to={`/courses/${getStreamSlug(stream.name)}`}>
                     Explore {stream.name}
                   </Link>
                 </Button>
@@ -217,7 +257,7 @@ export default function Courses() {
                       className="w-full"
                       asChild
                     >
-                      <Link to={`/courses/${selectedStream.toLowerCase()}/${course.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                      <Link to={`/courses/${getStreamSlug(selectedStream)}/${toCourseSlug(course.name)}`}>
                         View Details
                       </Link>
                     </Button>
@@ -280,7 +320,7 @@ export default function Courses() {
                     </div>
 
                     <Button className="w-full" asChild>
-                      <Link to={`/courses/${course.stream.toLowerCase()}/${course.title.toLowerCase().replace(/\s+/g, '-')}`}>
+                      <Link to={`/courses/${getFeaturedStreamSlug(course.stream, course.title)}/${toCourseSlug(course.title)}`}>
                         Learn More
                       </Link>
                     </Button>
