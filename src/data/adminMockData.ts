@@ -10,7 +10,7 @@ export const mockStudents = [
     careerRecommendation: 'Software Developer',
     scholarshipsApplied: 3,
     progress: 75,
-    joinDate: '2024-01-15',
+    joinDate: '2025-01-15',
     status: 'active'
   },
   {
@@ -22,7 +22,7 @@ export const mockStudents = [
     careerRecommendation: 'Doctor',
     scholarshipsApplied: 5,
     progress: 88,
-    joinDate: '2024-02-20',
+    joinDate: '2025-02-20',
     status: 'active'
   },
   {
@@ -34,7 +34,7 @@ export const mockStudents = [
     careerRecommendation: 'Mechanical Engineer',
     scholarshipsApplied: 2,
     progress: 60,
-    joinDate: '2024-03-10',
+    joinDate: '2025-03-10',
     status: 'blocked'
   },
 ];
@@ -46,7 +46,7 @@ export const mockParents = [
     email: 'rajesh@example.com',
     linkedStudents: ['Arjun Kumar'],
     roiCalculations: 2,
-    joinDate: '2024-01-15',
+    joinDate: '2025-01-15',
     status: 'active'
   },
   {
@@ -55,7 +55,7 @@ export const mockParents = [
     email: 'sunita@example.com',
     linkedStudents: ['Priya Sharma'],
     roiCalculations: 5,
-    joinDate: '2024-02-20',
+    joinDate: '2025-02-20',
     status: 'active'
   },
 ];
@@ -96,7 +96,7 @@ export const mockScholarships = [
     title: 'Merit Scholarship for Engineering',
     eligibility: 'Min 90% in 12th grade',
     amount: '₹50,000',
-    deadline: '2024-12-31',
+    deadline: '2025-12-31',
     applyLink: 'https://example.com/apply1',
     provider: 'Tech Foundation'
   },
@@ -105,7 +105,7 @@ export const mockScholarships = [
     title: 'Medical Student Support Grant',
     eligibility: 'NEET qualified students',
     amount: '₹75,000',
-    deadline: '2024-11-30',
+    deadline: '2025-11-30',
     applyLink: 'https://example.com/apply2',
     provider: 'Healthcare Trust'
   },
@@ -126,7 +126,7 @@ export const mockQuizResults = [
     studentName: 'Arjun Kumar',
     quizType: 'Career Assessment',
     score: 85,
-    completedDate: '2024-03-15',
+    completedDate: '2025-03-15',
     timeTaken: '25 minutes',
     recommendation: 'Software Developer'
   },
@@ -135,7 +135,7 @@ export const mockQuizResults = [
     studentName: 'Priya Sharma',
     quizType: 'Aptitude Test',
     score: 92,
-    completedDate: '2024-03-14',
+    completedDate: '2025-03-14',
     timeTaken: '30 minutes',
     recommendation: 'Doctor'
   },
@@ -147,7 +147,7 @@ export const mockTestimonials = [
     studentName: 'Arjun Kumar',
     rating: 5,
     comment: 'EduNav helped me find the perfect college and scholarship!',
-    date: '2024-03-10',
+    date: '2025-03-10',
     status: 'pending'
   },
   {
@@ -155,7 +155,7 @@ export const mockTestimonials = [
     studentName: 'Priya Sharma',
     rating: 4,
     comment: 'Great platform for career guidance and college selection.',
-    date: '2024-03-08',
+    date: '2025-03-08',
     status: 'approved'
   },
 ];

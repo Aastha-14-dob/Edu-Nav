@@ -25,7 +25,7 @@ export default function ScholarshipDetails() {
     provider: 'Government of India',
     amount: '₹50,000/year',
     eligibility: 'Class 12 with 85%+ marks',
-    deadline: '2024-12-15',
+    deadline: '2025-12-15',
     category: 'Merit-based',
     applicants: '10,000+',
     status: 'open',
@@ -270,7 +270,7 @@ export default function ScholarshipDetails() {
               <CardContent className="space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">Application Start</span>
-                  <span className="text-sm font-medium">01 Nov 2024</span>
+                  <span className="text-sm font-medium">01 Nov 2025</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">Application End</span>

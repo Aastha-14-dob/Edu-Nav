@@ -2,8 +2,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Users, GraduationCap, Award, BarChart3, BookOpen, TrendingUp } from 'lucide-react';
 import { mockStats } from '@/data/adminMockData';
+import { useNavigate } from 'react-router-dom';
 
 export default function AdminDashboard() {
+  const navigate = useNavigate();
   const stats = [
     {
       title: 'Total Students',
@@ -133,20 +135,25 @@ export default function AdminDashboard() {
           <CardDescription>Common administrative tasks</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-4 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors">
-              <Users className="h-6 w-6 mb-2 text-primary" />
-              <p className="text-sm font-medium">Add Student</p>
-            </div>
-            <div className="p-4 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div 
+              className="p-4 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
+              onClick={() => navigate('/admin/add-college')}
+            >
               <GraduationCap className="h-6 w-6 mb-2 text-primary" />
               <p className="text-sm font-medium">Add College</p>
             </div>
-            <div className="p-4 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors">
+            <div 
+              className="p-4 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
+              onClick={() => navigate('/admin/add-scholarship')}
+            >
               <Award className="h-6 w-6 mb-2 text-primary" />
               <p className="text-sm font-medium">Add Scholarship</p>
             </div>
-            <div className="p-4 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors">
+            <div 
+              className="p-4 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
+              onClick={() => navigate('/admin/view-reports')}
+            >
               <BookOpen className="h-6 w-6 mb-2 text-primary" />
               <p className="text-sm font-medium">View Reports</p>
             </div>

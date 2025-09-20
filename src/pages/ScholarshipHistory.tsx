@@ -15,7 +15,7 @@ import {
 
 const scholarshipHistory = [
   {
-    year: 2024,
+    year: 2025,
     scholarships: [
       {
         id: 1,

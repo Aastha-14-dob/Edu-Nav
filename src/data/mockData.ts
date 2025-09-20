@@ -125,7 +125,7 @@ export const mockScholarships: Scholarship[] = [
     title: 'National Merit Scholarship',
     amount: '₹50,000/year',
     eligibility: 'Class 12 - 90% and above',
-    deadline: '2024-05-15',
+    deadline: '2025-05-15',
     provider: 'Government of India',
     type: 'Merit',
     description: 'Scholarship for academically excellent students pursuing higher education.'
@@ -135,7 +135,7 @@ export const mockScholarships: Scholarship[] = [
     title: 'Minority Community Scholarship',
     amount: '₹30,000/year',
     eligibility: 'Minority community students',
-    deadline: '2024-06-30',
+    deadline: '2025-06-30',
     provider: 'Ministry of Minority Affairs',
     type: 'Minority',
     description: 'Financial assistance for students from minority communities.'
@@ -145,7 +145,7 @@ export const mockScholarships: Scholarship[] = [
     title: 'Sports Excellence Award',
     amount: '₹75,000/year',
     eligibility: 'State/National level sports achievement',
-    deadline: '2024-04-20',
+    deadline: '2025-04-20',
     provider: 'Sports Authority of India',
     type: 'Sports',
     description: 'Scholarship for students with outstanding sports achievements.'
@@ -155,7 +155,7 @@ export const mockScholarships: Scholarship[] = [
     title: 'INSPIRE Scholarship for Higher Education',
     amount: '₹80,000/year',
     eligibility: 'Top 1% in Class 12 Science stream',
-    deadline: '2024-12-31',
+    deadline: '2025-12-31',
     provider: 'Department of Science & Technology',
     type: 'Merit',
     description: 'For students pursuing science, technology, engineering and mathematics courses at undergraduate and postgraduate levels.'
@@ -165,7 +165,7 @@ export const mockScholarships: Scholarship[] = [
     title: 'Kishore Vaigyanik Protsahan Yojana (KVPY)',
     amount: '₹1,00,000/year + contingency',
     eligibility: 'Science aptitude, Class 11/12/1st year UG',
-    deadline: '2024-10-15',
+    deadline: '2025-10-15',
     provider: 'Indian Institute of Science',
     type: 'Merit',
     description: 'Fellowship program for students interested in research careers in basic sciences.'
@@ -185,7 +185,7 @@ export const mockScholarships: Scholarship[] = [
     title: 'Post Matric Scholarship for SC Students',
     amount: '₹1,20,000/year',
     eligibility: 'SC category, Family income < ₹2.5 LPA',
-    deadline: '2024-11-30',
+    deadline: '2025-11-30',
     provider: 'Ministry of Social Justice & Empowerment',
     type: 'Minority',
     description: 'Financial assistance for SC students pursuing post-matric education.'
@@ -195,7 +195,7 @@ export const mockScholarships: Scholarship[] = [
     title: 'Girl Child Education Scholarship',
     amount: '₹25,000/year',
     eligibility: 'Female students, 75% in Class 12',
-    deadline: '2024-12-31',
+    deadline: '2025-12-31',
     provider: 'State Government',
     type: 'Merit',
     description: 'Encouraging higher education among girl children across all academic streams.'
@@ -205,7 +205,7 @@ export const mockScholarships: Scholarship[] = [
     title: 'Pragati Scholarship for Girls',
     amount: '₹50,000/year',
     eligibility: 'Girls in technical degree courses, Family income < ₹8 LPA',
-    deadline: '2024-09-30',
+    deadline: '2025-09-30',
     provider: 'All India Council for Technical Education',
     type: 'Need-based',
     description: 'Scholarship scheme for girl students pursuing technical education.'
@@ -215,7 +215,7 @@ export const mockScholarships: Scholarship[] = [
     title: 'Central Sector Scholarship Scheme',
     amount: '₹20,000/year',
     eligibility: 'Top 20,000 students in Class 12, Family income < ₹4.5 LPA',
-    deadline: '2024-08-31',
+    deadline: '2025-08-31',
     provider: 'Ministry of Education',
     type: 'Merit',
     description: 'Merit-cum-means scholarship for students from economically weaker sections.'

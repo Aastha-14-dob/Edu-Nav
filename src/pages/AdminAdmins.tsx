@@ -18,9 +18,9 @@ type AdminUser = {
 
 export default function AdminAdmins() {
   const [admins, setAdmins] = useState<AdminUser[]>([
-    { id: '1', name: 'Super Admin', email: 'admin@demo.com', role: 'super_admin', lastLogin: '2024-03-15T00:00:00Z' },
-    { id: '2', name: 'John Doe', email: 'john@edunav.com', role: 'admin', lastLogin: '2024-03-14T00:00:00Z' },
-    { id: '3', name: 'Jane Smith', email: 'jane@edunav.com', role: 'moderator', lastLogin: '2024-03-13T00:00:00Z' },
+    { id: '1', name: 'Super Admin', email: 'admin@demo.com', role: 'super_admin', lastLogin: '2025-03-15T00:00:00Z' },
+    { id: '2', name: 'John Doe', email: 'john@edunav.com', role: 'admin', lastLogin: '2025-03-14T00:00:00Z' },
+    { id: '3', name: 'Jane Smith', email: 'jane@edunav.com', role: 'moderator', lastLogin: '2025-03-13T00:00:00Z' },
   ]);
 
   const [name, setName] = useState('');

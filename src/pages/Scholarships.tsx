@@ -89,7 +89,7 @@ export default function Scholarships() {
             provider: 'Government of India',
             amount: '₹50,000/year',
             eligibility: `Class 12 with 80%+ marks in ${term || 'PCM'}`,
-            deadline: '31/03/2024',
+            deadline: '31/03/2025',
             applicants: '500+',
             type: 'Merit-based',
             status: 'Open'
@@ -99,7 +99,7 @@ export default function Scholarships() {
             provider: 'Educational Trust',
             amount: '₹25,000/year',
             eligibility: 'Family income below ₹5 LPA',
-            deadline: '15/04/2024',
+            deadline: '15/04/2025',
             applicants: '200+',
             type: 'Need-based',
             status: 'Open'
@@ -109,7 +109,7 @@ export default function Scholarships() {
             provider: 'University Grants Commission',
             amount: '₹75,000/year',
             eligibility: `Research proposal in ${term || 'STEM fields'} and academic excellence`,
-            deadline: '30/04/2024',
+            deadline: '30/04/2025',
             applicants: '100+',
             type: 'Research',
             status: 'Open'
@@ -119,7 +119,7 @@ export default function Scholarships() {
             provider: 'Ministry of Education',
             amount: '₹40,000/year',
             eligibility: 'Female students in STEM fields',
-            deadline: '20/05/2024',
+            deadline: '20/05/2025',
             applicants: '300+',
             type: 'Merit-based',
             status: 'Open'
@@ -129,7 +129,7 @@ export default function Scholarships() {
             provider: 'Rural Development Ministry',
             amount: '₹30,000/year',
             eligibility: 'Students from rural areas',
-            deadline: '10/06/2024',
+            deadline: '10/06/2025',
             applicants: '400+',
             type: 'Need-based',
             status: 'Open'
@@ -139,7 +139,7 @@ export default function Scholarships() {
             provider: 'Startup India',
             amount: '₹1,00,000/year',
             eligibility: `Innovative project in ${term || 'technology'}`,
-            deadline: '25/06/2024',
+            deadline: '25/06/2025',
             applicants: '150+',
             type: 'Research',
             status: 'Open'
