@@ -49,7 +49,9 @@ export default function Signup() {
       return;
     }
 
-    const success = await signup(name, email, password, role);
+    // Prevent admin signup through UI - force student role if somehow admin is selected
+    const signupRole = role === 'admin' ? 'student' : role;
+    const success = await signup(name, email, password, signupRole);
     
     if (success) {
       toast({
