@@ -10,8 +10,8 @@ export interface User {
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string, role: 'student' | 'parent') => Promise<boolean>;
-  signup: (name: string, email: string, password: string, role: 'student' | 'parent') => Promise<boolean>;
+  login: (email: string, password: string, role: 'student' | 'parent' | 'admin') => Promise<boolean>;
+  signup: (name: string, email: string, password: string, role: 'student' | 'parent' | 'admin') => Promise<boolean>;
   logout: () => void;
   isLoading: boolean;
 }
@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password: string, role: 'student' | 'parent'): Promise<boolean> => {
+  const login = async (email: string, password: string, role: 'student' | 'parent' | 'admin'): Promise<boolean> => {
     setIsLoading(true);
     
     // Simulate API call
@@ -41,6 +41,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const demoUsers = [
       { id: '1', name: 'Arjun Kumar', email: 'student@demo.com', role: 'student' as const },
       { id: '2', name: 'Priya Sharma', email: 'parent@demo.com', role: 'parent' as const },
+      { id: '3', name: 'Admin User', email: 'admin@demo.com', role: 'admin' as const },
     ];
     
     const foundUser = demoUsers.find(u => u.email === email && u.role === role);
@@ -56,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return false;
   };
 
-  const signup = async (name: string, email: string, password: string, role: 'student' | 'parent'): Promise<boolean> => {
+  const signup = async (name: string, email: string, password: string, role: 'student' | 'parent' | 'admin'): Promise<boolean> => {
     setIsLoading(true);
     
     // Simulate API call

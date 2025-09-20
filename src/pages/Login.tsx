@@ -12,7 +12,7 @@ import { GraduationCap, Loader2 } from 'lucide-react';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState<'student' | 'parent'>('student');
+  const [role, setRole] = useState<'student' | 'parent' | 'admin'>('student');
   const { login, isLoading } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export default function Login() {
     } else {
       toast({
         title: 'Error',
-        description: 'Invalid credentials. Try student@demo.com or parent@demo.com',
+        description: 'Invalid credentials. Try student@demo.com, parent@demo.com, or admin@demo.com',
         variant: 'destructive',
       });
     }
@@ -78,7 +78,7 @@ export default function Login() {
               {/* Role Selection */}
               <div className="space-y-3">
                 <Label className="text-base font-medium">I am a:</Label>
-                <RadioGroup value={role} onValueChange={(value: 'student' | 'parent') => setRole(value)}>
+                <RadioGroup value={role} onValueChange={(value: 'student' | 'parent' | 'admin') => setRole(value)}>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="student" id="student" />
                     <Label htmlFor="student">Student</Label>
@@ -86,6 +86,10 @@ export default function Login() {
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="parent" id="parent" />
                     <Label htmlFor="parent">Parent</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="admin" id="admin" />
+                    <Label htmlFor="admin">Admin</Label>
                   </div>
                 </RadioGroup>
               </div>
@@ -137,6 +141,7 @@ export default function Login() {
               <div className="text-xs space-y-1">
                 <p><strong>Student:</strong> student@demo.com</p>
                 <p><strong>Parent:</strong> parent@demo.com</p>
+                <p><strong>Admin:</strong> admin@demo.com</p>
                 <p><strong>Password:</strong> demo123</p>
               </div>
             </div>
