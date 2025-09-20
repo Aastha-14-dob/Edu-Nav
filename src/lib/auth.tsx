@@ -57,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return false;
   };
 
-  const signup = async (name: string, email: string, password: string, role: 'student' | 'parent' | 'admin'): Promise<boolean> => {
+  const signup = async (name: string, email: string, password: string, role: 'student' | 'parent'): Promise<boolean> => {
     setIsLoading(true);
     
     // Simulate API call
