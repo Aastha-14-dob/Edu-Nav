@@ -14,7 +14,7 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [role, setRole] = useState<'student' | 'parent' | 'admin'>('student');
+  const [role, setRole] = useState<'student' | 'parent'>('student');
   const { signup, isLoading } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -98,7 +98,7 @@ export default function Signup() {
               {/* Role Selection */}
               <div className="space-y-3">
                 <Label className="text-base font-medium">I am a:</Label>
-                <RadioGroup value={role} onValueChange={(value: 'student' | 'parent' | 'admin') => setRole(value)}>
+                <RadioGroup value={role} onValueChange={(value: 'student' | 'parent') => setRole(value)}>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="student" id="student" />
                     <Label htmlFor="student">Student</Label>
@@ -106,10 +106,6 @@ export default function Signup() {
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="parent" id="parent" />
                     <Label htmlFor="parent">Parent</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="admin" id="admin" />
-                    <Label htmlFor="admin">Admin</Label>
                   </div>
                 </RadioGroup>
               </div>
