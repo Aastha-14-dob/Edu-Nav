@@ -24,17 +24,17 @@ Frontend:
 
 HTML, CSS, JavaScript
 
-React.js (optional if you’re using it)
+React.js 
 
 Backend:
 
-Node.js / Express.js (or Flask if you went with Python)
+Node.js , Express.js 
 
-OpenAI API (for AI-driven recommendations, optional)
+GeminiAI API (for AI-driven recommendations)
 
 Database:
 
-MongoDB / MySQL (depending on your implementation)
+MongoDB 
 
 Other Tools:
 
