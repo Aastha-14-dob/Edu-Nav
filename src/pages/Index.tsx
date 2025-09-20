@@ -436,7 +436,7 @@ const Index = () => {
           </div>
           
           <div className="mt-8 pt-8 border-t border-border text-center text-muted-foreground">
-            <p>&copy; 2024 EduNav – Career GPS. All rights reserved.</p>
+            <p>&copy; 2025 EduNav – Career GPS. All rights reserved.</p>
           </div>
         </div>
       </footer>

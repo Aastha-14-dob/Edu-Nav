@@ -22,15 +22,15 @@ export default function AdminSettings() {
   const [adminTheme, setAdminTheme] = useState('light');
   
   const mockAdmins = [
-    { id: '1', name: 'Super Admin', email: 'admin@demo.com', role: 'super_admin', lastLogin: '2024-03-15' },
-    { id: '2', name: 'John Doe', email: 'john@edunav.com', role: 'admin', lastLogin: '2024-03-14' },
-    { id: '3', name: 'Jane Smith', email: 'jane@edunav.com', role: 'moderator', lastLogin: '2024-03-13' },
+    { id: '1', name: 'Super Admin', email: 'admin@demo.com', role: 'super_admin', lastLogin: '2025-03-15' },
+    { id: '2', name: 'John Doe', email: 'john@edunav.com', role: 'admin', lastLogin: '2025-03-14' },
+    { id: '3', name: 'Jane Smith', email: 'jane@edunav.com', role: 'moderator', lastLogin: '2025-03-13' },
   ];
 
   const mockFailedLogins = [
-    { id: '1', email: 'suspicious@email.com', attempts: 5, lastAttempt: '2024-03-15 10:30 AM', blocked: true },
-    { id: '2', email: 'test@hack.com', attempts: 3, lastAttempt: '2024-03-15 09:15 AM', blocked: false },
-    { id: '3', email: 'wrong@password.com', attempts: 2, lastAttempt: '2024-03-14 08:45 PM', blocked: false },
+    { id: '1', email: 'suspicious@email.com', attempts: 5, lastAttempt: '2025-03-15 10:30 AM', blocked: true },
+    { id: '2', email: 'test@hack.com', attempts: 3, lastAttempt: '2025-03-15 09:15 AM', blocked: false },
+    { id: '3', email: 'wrong@password.com', attempts: 2, lastAttempt: '2025-03-14 08:45 PM', blocked: false },
   ];
 
   const systemSettings = [

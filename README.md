@@ -41,3 +41,11 @@ Other Tools:
 Git & GitHub for version control
 
 REST APIs for scholarships/colleges data integration
+
+Installation
+
+Clone the repository:
+
+   (bash)
+   git clone https://github.com/Aastha-14-dob/Edu-Nav.git
+   cd Edu-Nav
