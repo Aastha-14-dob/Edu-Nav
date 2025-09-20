@@ -42,6 +42,9 @@ import AdminQuizzes from "./pages/AdminQuizzes";
 import AdminTestimonials from "./pages/AdminTestimonials";
 import AdminSettings from "./pages/AdminSettings";
 import AdminAdmins from "./pages/AdminAdmins";
+import CareerPath from "./pages/CareerPath";
+import CareerRoadmap from "./pages/CareerRoadmap";
+import StreamCourses from "./pages/StreamCourses";
 
 const queryClient = new QueryClient();
 
@@ -106,7 +109,6 @@ const App = () => (
               <Route path="/careers" element={<Careers />} />
               <Route path="/explore" element={<Explore />} />
               <Route path="/quiz/results" element={<QuizResults />} />
-              <Route path="/courses/:stream" element={<CourseStream />} />
               <Route path="/courses/:stream/:courseId" element={<CourseDetails />} />
               <Route path="/colleges/:id" element={<CollegeDetails />} />
               <Route path="/scholarships/:id" element={<ScholarshipDetails />} />
@@ -129,12 +131,6 @@ const App = () => (
               <Route path="/admin/testimonials" element={<AdminTestimonials />} />
               <Route path="/admin/settings" element={<AdminSettings />} />
               <Route path="/admin/settings/admins" element={<AdminAdmins />} />
-              
-              {/* Admin Quick Action Routes */}
-              <Route path="/admin/add-student" element={<AdminAddStudent />} />
-              <Route path="/admin/add-college" element={<AdminAddCollege />} />
-              <Route path="/admin/add-scholarship" element={<AdminAddScholarship />} />
-              <Route path="/admin/view-reports" element={<AdminViewReports />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
