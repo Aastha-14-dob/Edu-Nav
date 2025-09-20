@@ -42,6 +42,9 @@ import AdminQuizzes from "./pages/AdminQuizzes";
 import AdminTestimonials from "./pages/AdminTestimonials";
 import AdminSettings from "./pages/AdminSettings";
 import AdminAdmins from "./pages/AdminAdmins";
+import CareerPath from "./pages/CareerPath";
+import CareerRoadmap from "./pages/CareerRoadmap";
+import StreamCourses from "./pages/StreamCourses";
 
 const queryClient = new QueryClient();
 
@@ -113,6 +116,11 @@ const App = () => (
               <Route path="/scholarships/history" element={<ScholarshipHistory />} />
               <Route path="/admissions/:id" element={<AdmissionDetails />} />
               <Route path="/colleges/:id/courses" element={<CollegeCourses />} />
+              
+              {/* Career Recommendation Routes */}
+              <Route path="/recommendations/:careerName" element={<CareerPath />} />
+              <Route path="/recommendations/:careerName/path" element={<CareerRoadmap />} />
+              <Route path="/courses/:stream" element={<StreamCourses />} />
               
               {/* Admin Routes */}
               <Route path="/admin" element={<AdminDashboard />} />

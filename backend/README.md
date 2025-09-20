@@ -1,43 +1,46 @@
-This is my Carrer Guidance platfrom.
+# Edu-Nav Backend
 
-A Career Guidance Web Application that helps students explore educational opportunities, scholarships, and career pathways. The platform bridges the awareness gap by providing personalized guidance, college information, and scholarship details—empowering students to make informed academic and career decisions.
+Overview
+This is the backend service for **Edu-Nav**, an education navigation platform.  
+It provides APIs for authentication, user management, and course navigation features, connecting with MongoDB for data persistence.
 
-🚀 Features
 
-🔐 User Authentication – Secure login and signup system for students and parents.
+Features
+- User registration & login with JWT authentication  
+- RESTful APIs for frontend integration  
+- MongoDB models for users, courses, and navigation data  
+- Error handling & middleware support  
 
-📝 Aptitude & Interest Quiz – Suggests career streams based on student interests and strengths.
+Tech Stack
+- Runtime: Node.js  
+- Framework: Express.js  
+- Database: MongoDB with Mongoose ODM  
+- Authentication: JWT  
+- Environment Management: dotenv  
 
-🏫 College Information – Database of colleges with filters by course, location, and ranking.
+Installation
 
-🎓 Scholarship Opportunities – Aggregated data of scholarships with eligibility and deadlines.
+Clone the repository and install dependencies:
 
-💬 Career Guidance – Personalized suggestions for streams, courses, and job roles.
+bash
+git clone https://github.com/Aastha-14-dob/Edu-Nav.git
+cd Edu-Nav/backend
+npm install
 
-📊 Admin Panel – Insights, analytics, and reports for managing student engagement.
+Configuration
 
-⭐ Review & Feedback – Students can share experiences and feedback for continuous improvement.
+Create a .env file in the backend directory:
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
 
-🏗️ Tech Stack
+Running the Server
 
-Frontend:
+For development: (bash)
+npm run dev
 
-HTML, CSS, JavaScript
+For production: (bash)
+npm start
 
-React.js (optional if you’re using it)
-
-Backend:
-
-Node.js / Express.js (or Flask if you went with Python)
-
-OpenAI API (for AI-driven recommendations, optional)
-
-Database:
-
-MongoDB / MySQL (depending on your implementation)
-
-Other Tools:
-
-Git & GitHub for version control
-
-REST APIs for scholarships/colleges data integration
+Server will run at:
+http://localhost:5000/
