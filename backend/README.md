@@ -13,10 +13,10 @@ Features
 
 Tech Stack
 - Runtime: Node.js  
-- **Framework: Express.js  
-- **Database: MongoDB with Mongoose ODM  
-- **Authentication: JWT  
-- **Environment Management: dotenv  
+- Framework: Express.js  
+- Database: MongoDB with Mongoose ODM  
+- Authentication: JWT  
+- Environment Management: dotenv  
 
 Installation
 
