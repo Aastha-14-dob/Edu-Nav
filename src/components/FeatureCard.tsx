@@ -25,7 +25,7 @@ export default function FeatureCard({ title, description, icon: Icon, href, grad
   return (
     <Link to={href} className="group" onClick={handleClick}>
       <Card className={`h-full transition-all duration-300 hover:scale-105 shadow-card hover:shadow-hover cursor-pointer ${
-        gradient ? 'bg-gradient-card border-primary/20' : 'bg-card hover:bg-card-hover'
+        gradient ? 'bg-gradient-card border-primary/30 shadow-glow' : 'bg-card hover:bg-card-hover'
       }`}>
         <CardContent className="p-6 text-center space-y-4">
           <div className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${

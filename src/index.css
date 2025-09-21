@@ -60,7 +60,7 @@
     --gradient-hero: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(170 97% 15%) 100%);
     --gradient-success: linear-gradient(135deg, hsl(158 64% 52%), hsl(158 64% 62%));
     --gradient-warning: linear-gradient(135deg, hsl(45 93% 58%), hsl(45 93% 68%));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(262 83% 98%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(262 83% 98%) 0%, hsl(262 83% 95%) 100%);
     --gradient-teal: linear-gradient(135deg, hsl(170 97% 15%) 0%, hsl(170 97% 25%) 100%);
     
     /* Sophisticated Shadows */
@@ -153,7 +153,7 @@
     --gradient-hero: linear-gradient(135deg, hsl(262 83% 68%) 0%, hsl(170 97% 35%) 100%);
     --gradient-success: linear-gradient(135deg, hsl(158 64% 62%), hsl(158 64% 72%));
     --gradient-warning: linear-gradient(135deg, hsl(45 93% 68%), hsl(45 93% 78%));
-    --gradient-card: linear-gradient(145deg, hsl(220 13% 12%) 0%, hsl(262 83% 18%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(262 83% 18%) 0%, hsl(262 83% 22%) 100%);
     --gradient-teal: linear-gradient(135deg, hsl(170 97% 35%) 0%, hsl(170 97% 45%) 100%);
     
     /* Dark Shadows */

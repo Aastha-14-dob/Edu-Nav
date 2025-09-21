@@ -45,6 +45,11 @@ import AdminAdmins from "./pages/AdminAdmins";
 import CareerPath from "./pages/CareerPath";
 import CareerRoadmap from "./pages/CareerRoadmap";
 import StreamCourses from "./pages/StreamCourses";
+import ROICalculator from "./pages/ROICalculator";
+import CareerComparison from "./pages/CareerComparison";
+import CollegeInsights from "./pages/CollegeInsights";
+import CareerTrends from "./pages/CareerTrends";
+import InvestmentPlanning from "./pages/InvestmentPlanning";
 
 const queryClient = new QueryClient();
 
@@ -120,6 +125,13 @@ const App = () => (
               <Route path="/recommendations/:careerName" element={<CareerPath />} />
               <Route path="/recommendations/:careerName/path" element={<CareerRoadmap />} />
               <Route path="/courses/:stream" element={<StreamCourses />} />
+              
+              {/* Parent Tool Routes */}
+              <Route path="/roi-calculator" element={<ROICalculator />} />
+              <Route path="/compare-careers" element={<CareerComparison />} />
+              <Route path="/college-insights" element={<CollegeInsights />} />
+              <Route path="/career-trends" element={<CareerTrends />} />
+              <Route path="/investment-planning" element={<InvestmentPlanning />} />
               
               {/* Admin Routes */}
               <Route path="/admin" element={<AdminDashboard />} />

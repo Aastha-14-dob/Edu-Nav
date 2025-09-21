@@ -56,7 +56,7 @@ export default function ParentDashboard() {
       title: 'College Insights',
       description: 'Detailed information about colleges, fees, and placement records',
       icon: BarChart3,
-      href: '/colleges',
+      href: '/college-insights',
     },
     {
       title: 'Career Trends',
@@ -216,11 +216,6 @@ export default function ParentDashboard() {
                     </div>
                   </div>
                 ))}
-                
-                <Button variant="outline" className="w-full mt-4">
-                  <Users className="mr-2 h-4 w-4" />
-                  View Detailed Progress
-                </Button>
               </div>
             </CardContent>
           </Card>
@@ -270,32 +265,6 @@ export default function ParentDashboard() {
           </Card>
         </div>
 
-        {/* Quick Actions */}
-        <div className="mt-8">
-          <Card className="bg-gradient-card shadow-hover">
-            <CardContent className="p-8">
-              <div className="text-center space-y-4">
-                <h3 className="text-2xl font-bold text-foreground">
-                  Need Personalized Guidance?
-                </h3>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
-                  Schedule a one-on-one session with our education counselors to create a customized 
-                  roadmap for your child's academic and career success.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button variant="hero" size="lg">
-                    <Users className="mr-2 h-5 w-5" />
-                    Schedule Consultation
-                  </Button>
-                  <Button variant="outline" size="lg">
-                    <BookOpen className="mr-2 h-5 w-5" />
-                    Download Parent Guide
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   );
