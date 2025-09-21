@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -12,12 +11,11 @@ import {
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
 import { Search, MoreHorizontal, Eye, Edit, Trash2, ExternalLink, Plus, Calendar } from 'lucide-react';
-import { useScholarship } from '@/contexts/ScholarshipContext';
+import { mockScholarships } from '@/data/adminMockData';
 
 export default function AdminScholarships() {
-  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
-  const { scholarships, deleteScholarship } = useScholarship();
+  const [scholarships] = useState(mockScholarships);
 
   const filteredScholarships = scholarships.filter(scholarship =>
     scholarship.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -26,19 +24,7 @@ export default function AdminScholarships() {
   );
 
   const handleAction = (action: string, scholarshipId: string) => {
-    if (action === 'delete') {
-      if (confirm('Are you sure you want to delete this scholarship?')) {
-        deleteScholarship(scholarshipId);
-      }
-    } else if (action === 'edit') {
-      navigate(`/admin/edit-scholarship/${scholarshipId}`);
-    } else if (action === 'view') {
-      navigate(`/admin/scholarship-details/${scholarshipId}`);
-    }
-  };
-
-  const handleAddNewScholarship = () => {
-    navigate('/admin/add-scholarship');
+    console.log(`${action} action for scholarship ${scholarshipId}`);
   };
 
   const getDeadlineStatus = (deadline: string) => {
@@ -60,7 +46,7 @@ export default function AdminScholarships() {
           <h1 className="text-3xl font-bold text-foreground">Scholarship Management</h1>
           <p className="text-muted-foreground">Manage scholarships and their details</p>
         </div>
-        <Button variant="hero" onClick={handleAddNewScholarship}>
+        <Button variant="hero">
           <Plus className="mr-2 h-4 w-4" />
           Add New Scholarship
         </Button>

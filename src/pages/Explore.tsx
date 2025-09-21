@@ -47,6 +47,14 @@ const exploreCategories = [
     items: '800+ Scholarships'
   },
   {
+    title: 'Career Assessment',
+    description: 'Take our comprehensive quiz to discover your ideal career path',
+    icon: Target,
+    href: '/quiz',
+    color: 'text-teal',
+    items: 'Personalized Results'
+  },
+  {
     title: 'Career Guidance',
     description: 'Get personalized recommendations and career counseling',
     icon: Compass,
@@ -134,6 +142,11 @@ export default function Explore() {
                 tailored to your interests, skills, and goals.
               </p>
               <div className="space-x-4">
+                <Button asChild variant="secondary" size="lg">
+                  <Link to="/quiz">
+                    Take Career Quiz
+                  </Link>
+                </Button>
                 <Button asChild variant="secondary" size="lg">
                   <Link to="/contact">
                     Get Guidance

@@ -69,6 +69,12 @@ const Index = () => {
 
   const features = [
     {
+      title: 'Aptitude Test',
+      description: 'Discover your strengths and career preferences with our comprehensive assessment',
+      icon: Brain,
+      href: '/quiz',
+    },
+    {
       title: 'Nearby Colleges',
       description: 'Find the best educational institutions in your area with detailed information',
       icon: MapPin,
@@ -376,6 +382,9 @@ const Index = () => {
               <Button variant="secondary" size="lg" asChild>
                 <Link to="/signup">Start Your Journey</Link>
               </Button>
+              <Button variant="secondary" size="lg" asChild>
+                <Link to="/quiz">Take Free Assessment</Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -398,6 +407,7 @@ const Index = () => {
             <div>
               <h3 className="font-semibold mb-4">Features</h3>
               <ul className="space-y-2 text-muted-foreground">
+                <li><Link to="/quiz" className="hover:text-primary">Aptitude Test</Link></li>
                 <li><Link to="/colleges" className="hover:text-primary">College Search</Link></li>
                 <li><Link to="/scholarships" className="hover:text-primary">Scholarships</Link></li>
                 <li><Link to="/courses" className="hover:text-primary">Course Explorer</Link></li>

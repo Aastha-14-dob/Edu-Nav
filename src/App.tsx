@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { AuthProvider } from "@/lib/auth";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { ScholarshipProvider } from "@/contexts/ScholarshipContext";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -43,15 +42,6 @@ import AdminQuizzes from "./pages/AdminQuizzes";
 import AdminTestimonials from "./pages/AdminTestimonials";
 import AdminSettings from "./pages/AdminSettings";
 import AdminAdmins from "./pages/AdminAdmins";
-import AdminAddCollege from "./pages/AdminAddCollege";
-import AdminAddCollegeDetails from "./pages/AdminAddCollegeDetails";
-import AdminAddCollegeCourses from "./pages/AdminAddCollegeCourses";
-import AdminAddScholarship from "./pages/AdminAddScholarship";
-import AdminAddScholarshipDetails from "./pages/AdminAddScholarshipDetails";
-import AdminAddScholarshipTerms from "./pages/AdminAddScholarshipTerms";
-import AdminViewReports from "./pages/AdminViewReports";
-import AdminUserAnalyticsReport from "./pages/AdminUserAnalyticsReport";
-import AdminCollegePerformanceReport from "./pages/AdminCollegePerformanceReport";
 import CareerPath from "./pages/CareerPath";
 import CareerRoadmap from "./pages/CareerRoadmap";
 import StreamCourses from "./pages/StreamCourses";
@@ -99,8 +89,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider defaultTheme="light" storageKey="eduNav-theme">
       <AuthProvider>
-        <ScholarshipProvider>
-          <TooltipProvider>
+        <TooltipProvider>
           <Toaster />
           <Sonner />
           <BrowserRouter>
@@ -155,27 +144,11 @@ const App = () => (
               <Route path="/admin/settings" element={<AdminSettings />} />
               <Route path="/admin/settings/admins" element={<AdminAdmins />} />
               
-              {/* Admin Add College Routes */}
-              <Route path="/admin/add-college" element={<AdminAddCollege />} />
-              <Route path="/admin/add-college/details" element={<AdminAddCollegeDetails />} />
-              <Route path="/admin/add-college/courses" element={<AdminAddCollegeCourses />} />
-              
-              {/* Admin Add Scholarship Routes */}
-              <Route path="/admin/add-scholarship" element={<AdminAddScholarship />} />
-              <Route path="/admin/add-scholarship/details" element={<AdminAddScholarshipDetails />} />
-              <Route path="/admin/add-scholarship/terms" element={<AdminAddScholarshipTerms />} />
-              
-              {/* Admin Reports Routes */}
-              <Route path="/admin/view-reports" element={<AdminViewReports />} />
-              <Route path="/admin/reports/user-analytics" element={<AdminUserAnalyticsReport />} />
-              <Route path="/admin/reports/college-performance" element={<AdminCollegePerformanceReport />} />
-              
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
-          </TooltipProvider>
-        </ScholarshipProvider>
+        </TooltipProvider>
       </AuthProvider>
     </ThemeProvider>
   </QueryClientProvider>
