@@ -42,6 +42,15 @@ import AdminQuizzes from "./pages/AdminQuizzes";
 import AdminTestimonials from "./pages/AdminTestimonials";
 import AdminSettings from "./pages/AdminSettings";
 import AdminAdmins from "./pages/AdminAdmins";
+import AdminAddCollege from "./pages/AdminAddCollege";
+import AdminAddCollegeDetails from "./pages/AdminAddCollegeDetails";
+import AdminAddCollegeCourses from "./pages/AdminAddCollegeCourses";
+import AdminAddScholarship from "./pages/AdminAddScholarship";
+import AdminAddScholarshipDetails from "./pages/AdminAddScholarshipDetails";
+import AdminAddScholarshipTerms from "./pages/AdminAddScholarshipTerms";
+import AdminViewReports from "./pages/AdminViewReports";
+import AdminUserAnalyticsReport from "./pages/AdminUserAnalyticsReport";
+import AdminCollegePerformanceReport from "./pages/AdminCollegePerformanceReport";
 import CareerPath from "./pages/CareerPath";
 import CareerRoadmap from "./pages/CareerRoadmap";
 import StreamCourses from "./pages/StreamCourses";
@@ -143,6 +152,21 @@ const App = () => (
               <Route path="/admin/testimonials" element={<AdminTestimonials />} />
               <Route path="/admin/settings" element={<AdminSettings />} />
               <Route path="/admin/settings/admins" element={<AdminAdmins />} />
+              
+              {/* Admin Add College Routes */}
+              <Route path="/admin/add-college" element={<AdminAddCollege />} />
+              <Route path="/admin/add-college/details" element={<AdminAddCollegeDetails />} />
+              <Route path="/admin/add-college/courses" element={<AdminAddCollegeCourses />} />
+              
+              {/* Admin Add Scholarship Routes */}
+              <Route path="/admin/add-scholarship" element={<AdminAddScholarship />} />
+              <Route path="/admin/add-scholarship/details" element={<AdminAddScholarshipDetails />} />
+              <Route path="/admin/add-scholarship/terms" element={<AdminAddScholarshipTerms />} />
+              
+              {/* Admin Reports Routes */}
+              <Route path="/admin/view-reports" element={<AdminViewReports />} />
+              <Route path="/admin/reports/user-analytics" element={<AdminUserAnalyticsReport />} />
+              <Route path="/admin/reports/college-performance" element={<AdminCollegePerformanceReport />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

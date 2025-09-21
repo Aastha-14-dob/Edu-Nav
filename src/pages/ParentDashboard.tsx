@@ -97,7 +97,6 @@ export default function ParentDashboard() {
   ];
 
   const childProgress = [
-    { task: 'Complete Aptitude Assessment', status: 'completed', date: '2 days ago' },
     { task: 'Explore Career Options', status: 'in-progress', date: 'In progress' },
     { task: 'Apply for Scholarships', status: 'pending', date: 'Due in 5 days' },
     { task: 'Submit College Applications', status: 'pending', date: 'Due in 2 weeks' },
