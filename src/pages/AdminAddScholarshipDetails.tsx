@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useScholarship } from '@/contexts/ScholarshipContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,6 +13,7 @@ import { ArrowLeft, Save, Plus, Award, DollarSign, Calendar, Users, FileText } f
 export default function AdminAddScholarshipDetails() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { addScholarship } = useScholarship();
   const [scholarshipData, setScholarshipData] = useState<any>(null);
   
   const [detailsData, setDetailsData] = useState({
@@ -122,7 +124,27 @@ export default function AdminAddScholarshipDetails() {
 
   const handleSave = () => {
     if (validateForm()) {
-      console.log('Saving scholarship details:', { scholarshipData, detailsData });
+      // Convert form data to scholarship format
+      const scholarshipDataToSave = {
+        title: scholarshipData.name,
+        provider: scholarshipData.provider,
+        type: scholarshipData.type,
+        category: scholarshipData.category,
+        amount: scholarshipData.amount,
+        currency: scholarshipData.currency,
+        description: scholarshipData.description,
+        eligibility: scholarshipData.eligibility,
+        applicationProcess: scholarshipData.applicationProcess,
+        requiredDocuments: scholarshipData.requiredDocuments,
+        applicationDeadline: scholarshipData.applicationDeadline,
+        announcementDate: scholarshipData.announcementDate,
+        contactEmail: scholarshipData.contactEmail,
+        contactPhone: scholarshipData.contactPhone,
+        website: scholarshipData.website,
+        isActive: scholarshipData.isActive,
+      };
+      
+      addScholarship(scholarshipDataToSave);
       alert('Scholarship details saved successfully!');
       navigate('/admin/scholarships');
     }

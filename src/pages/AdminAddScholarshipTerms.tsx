@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useScholarship } from '@/contexts/ScholarshipContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,6 +12,7 @@ import { ArrowLeft, Save, FileText, Award, DollarSign, Calendar } from 'lucide-r
 export default function AdminAddScholarshipTerms() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { addScholarship } = useScholarship();
   const [scholarshipData, setScholarshipData] = useState<any>(null);
   const [detailsData, setDetailsData] = useState<any>(null);
   
@@ -111,7 +113,27 @@ export default function AdminAddScholarshipTerms() {
 
   const handleSave = () => {
     if (validateForm()) {
-      console.log('Saving scholarship with terms:', { scholarshipData, detailsData, termsData });
+      // Convert form data to scholarship format
+      const scholarshipDataToSave = {
+        title: scholarshipData.name,
+        provider: scholarshipData.provider,
+        type: scholarshipData.type,
+        category: scholarshipData.category,
+        amount: scholarshipData.amount,
+        currency: scholarshipData.currency,
+        description: scholarshipData.description,
+        eligibility: scholarshipData.eligibility,
+        applicationProcess: scholarshipData.applicationProcess,
+        requiredDocuments: scholarshipData.requiredDocuments,
+        applicationDeadline: scholarshipData.applicationDeadline,
+        announcementDate: scholarshipData.announcementDate,
+        contactEmail: scholarshipData.contactEmail,
+        contactPhone: scholarshipData.contactPhone,
+        website: scholarshipData.website,
+        isActive: scholarshipData.isActive,
+      };
+      
+      addScholarship(scholarshipDataToSave);
       alert('Scholarship with terms and conditions saved successfully!');
       navigate('/admin/scholarships');
     }

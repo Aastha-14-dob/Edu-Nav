@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useScholarship } from '@/contexts/ScholarshipContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,6 +11,7 @@ import { ArrowLeft, Save, Plus, Award, DollarSign, Calendar, Users } from 'lucid
 
 export default function AdminAddScholarship() {
   const navigate = useNavigate();
+  const { addScholarship } = useScholarship();
   const [formData, setFormData] = useState({
     name: '',
     provider: '',
@@ -99,7 +101,27 @@ export default function AdminAddScholarship() {
 
   const handleSave = () => {
     if (validateForm()) {
-      console.log('Saving scholarship data:', formData);
+      // Convert form data to scholarship format
+      const scholarshipData = {
+        title: formData.name,
+        provider: formData.provider,
+        type: formData.type,
+        category: formData.category,
+        amount: formData.amount,
+        currency: formData.currency,
+        description: formData.description,
+        eligibility: formData.eligibility,
+        applicationProcess: formData.applicationProcess,
+        requiredDocuments: formData.requiredDocuments,
+        applicationDeadline: formData.applicationDeadline,
+        announcementDate: formData.announcementDate,
+        contactEmail: formData.contactEmail,
+        contactPhone: formData.contactPhone,
+        website: formData.website,
+        isActive: formData.isActive,
+      };
+      
+      addScholarship(scholarshipData);
       alert('Scholarship added successfully!');
       navigate('/admin/scholarships');
     }
